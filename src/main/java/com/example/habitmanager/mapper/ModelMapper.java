@@ -6,15 +6,15 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface ModelMapper {
-    UserDTO userToUserDTO(User user);
-    User userDTOToUser(UserDTO userDTO);
+    UserDTO toUserDTO(User user);
+    User toUser(UserDTO userDTO);
 
-    HabitDTO habitToHabitDTO(Habit habit);
-    Habit habitDTOToHabit(HabitDTO habitDTO);
+    HabitDTO toHabitDTO(Habit habit);
+    Habit toHabit(HabitDTO habitDTO);
 
-    StatsDTO statsToStatsDTO(Stats stats);
-    Stats statsDTOToStats(StatsDTO statsDTO);
+    StatsDTO toStatsDTO(Stats stats);
+    Stats toStats(StatsDTO statsDTO);
 
-    CategoryDTO categoryToCategoryDTO(Category category);
-    Category categoryDTOToCategory(CategoryDTO categoryDTO);
+    CategoryDTO toCategoryDTO(Category category);
+    Category toCategory(CategoryDTO categoryDTO);
 }
