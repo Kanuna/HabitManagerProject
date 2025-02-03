@@ -2,6 +2,8 @@ package com.example.habitmanager.dto;
 
 import com.example.habitmanager.models.Category;
 import com.example.habitmanager.models.Habit;
+import com.example.habitmanager.models.User;
+
 import java.util.List;
 
 public class UserDTO {
@@ -9,8 +11,10 @@ public class UserDTO {
     private String last_name;
     private String email;
     private String password;
-    private List<Habit> habits;
-    private List<Category> categories;
+    private User.RoleEnum role;
+
+  /*  private List<Habit> habits;
+    private List<Category> categories;*/
 
 
     public String getFirst_name() {
@@ -49,7 +53,7 @@ public class UserDTO {
         }
     }
 
-    public List<Habit> getHabits() {
+/*    public List<Habit> getHabits() {
         return habits;
     }
     public void setHabits(List<Habit> habits) {
@@ -61,5 +65,5 @@ public class UserDTO {
     }
     public void setCategories(List<Category> categories) {
         this.categories = categories;
-    }
+    }*/
 }

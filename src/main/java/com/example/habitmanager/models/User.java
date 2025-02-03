@@ -17,6 +17,12 @@ public class User {
     private String email;
     @Column(nullable = false)
     private String password;
+    @Column(nullable = false)
+    private RoleEnum role;
+
+    public enum RoleEnum {
+        ADMIN, USER
+    }
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Habit> habits;
