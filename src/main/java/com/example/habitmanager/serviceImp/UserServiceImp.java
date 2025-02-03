@@ -55,7 +55,7 @@ public class UserServiceImp implements UserService {
 
     @Override
     public boolean userLogin(String email, String password) {
-        return userRepository.findUSerByEmail(email)
+        return userRepository.findByEmail(email)
                 .map(user -> user.getPassword().equals(password)) // Compare passwords
                 .orElse(false);
     }
