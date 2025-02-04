@@ -1,10 +1,13 @@
 package com.example.habitmanager.controllers;
 
 import com.example.habitmanager.dto.UserDTO;
+import com.example.habitmanager.dtoCreate.UserDTOCreate;
 import com.example.habitmanager.serviceImp.UserServiceImp;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.net.URI;
 
 @RestController
 @RequestMapping("user")
@@ -16,9 +19,10 @@ public class UserController {
     }
 
     @PostMapping("/createUser")
-    public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO){
-        UserDTO createdUser = userServiceImp.createUser(userDTO);
-        return ResponseEntity.ok(createdUser);
+    public ResponseEntity<UserDTOCreate> createUser(@RequestBody UserDTOCreate userDTOCreate){
+        UserDTOCreate createdUser = userServiceImp.createUser(userDTOCreate);
+        URI location = URI.create("/user/" + createdUser.getUser_id());
+        return ResponseEntity.created(location).body(createdUser);
     }
 
     @GetMapping("/{id}")
