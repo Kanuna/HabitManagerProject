@@ -2,6 +2,7 @@ package com.example.habitmanager.serviceImp;
 
 import com.example.habitmanager.ResourceNotFoundException.ResourceNotFoundException;
 import com.example.habitmanager.dto.UserDTO;
+import com.example.habitmanager.dtoCreate.UserDTOCreate;
 import com.example.habitmanager.mapper.ModelMapper;
 import com.example.habitmanager.models.User;
 import com.example.habitmanager.repositories.UserRepository;
@@ -19,10 +20,10 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public UserDTO createUser(UserDTO userDTO) {
-        User user = modelMapper.toUser(userDTO);
+    public UserDTOCreate createUser(UserDTOCreate userDTOCreate) {
+        User user = modelMapper.toUser(userDTOCreate);
         User savedUser = userRepository.save(user);
-        return modelMapper.toUserDTO(savedUser);
+        return modelMapper.toUserDTOCreate(savedUser);
     }
 
     @Override
