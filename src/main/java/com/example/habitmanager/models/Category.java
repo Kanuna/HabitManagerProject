@@ -1,8 +1,12 @@
 package com.example.habitmanager.models;
 
 import jakarta.persistence.*;
+import lombok.*;
+
 import java.util.List;
 
+@Getter
+@Setter
 @Entity
 public class Category {
     @Id
@@ -20,28 +24,15 @@ public class Category {
     private User user;
 
 
-    public String getName() {
-        return name;
-    }
     public void setName(String name) {
         if(!name.isEmpty()){
             this.name = name;
         }
     }
 
-    public String getColorCode() {
-        return colorCode;
-    }
     public void setColorCode(String colorCode) {
         if(!colorCode.isEmpty()){
             this.colorCode = colorCode;
         }
-    }
-
-    public List<Habit> getHabits() {
-        return habits;
-    }
-    public void setHabits(List<Habit> habits) {
-        this.habits = habits;
     }
 }
