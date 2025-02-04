@@ -1,12 +1,13 @@
 package com.example.habitmanager.services;
 
 import com.example.habitmanager.dto.HabitDTO;
+import com.example.habitmanager.dtoCreate.HabitDTOCreate;
 
 import java.time.LocalDate;
 import java.util.List;
 
 public interface HabitService {
-    HabitDTO createHabit(HabitDTO habitDTO);
+    HabitDTOCreate createHabit(HabitDTOCreate habitDTOCreate);
     HabitDTO getHabit(int habit_id);
     HabitDTO updateHabit(int habit_id, HabitDTO habitDTO);
     void deleteHabit(int habit_id);
