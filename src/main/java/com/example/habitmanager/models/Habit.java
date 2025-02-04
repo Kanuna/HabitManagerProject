@@ -17,27 +17,22 @@ public class Habit {
     @Column(nullable = true)
     private String description;
 
+    @Column(nullable = false)
+    private State state;
+
     @Column(nullable = true)
     private int amountAWeek;
-
     @Enumerated(EnumType.STRING)
     private HabitType habitType;
-
     @ElementCollection
     @Enumerated(EnumType.STRING)
     private List<daysEnum> specificDays;
 
     @ElementCollection
     private List<LocalDate> specificDates;
-
-
-    @OneToMany(mappedBy = "habit")
-    private List<HabitCompletion> habitCompletions;
-
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "stats_id", nullable = false)
     private Stats stats;
-
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = true)
     private Category category;
@@ -45,6 +40,11 @@ public class Habit {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    public enum State {
+        Finished,
+        Not_Finished
+    }
 
     public enum HabitType {
         WEEKLY,
