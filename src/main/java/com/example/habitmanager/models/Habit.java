@@ -17,9 +17,6 @@ public class Habit {
     @Column(nullable = true)
     private String description;
 
-    @Column(nullable = false)
-    private State state;
-
     @Column(nullable = true)
     private int amountAWeek;
     @Enumerated(EnumType.STRING)
@@ -41,10 +38,9 @@ public class Habit {
     @JoinColumn(name = "user_id")
     private User user;
 
-    public enum State {
-        Finished,
-        Not_Finished
-    }
+    @OneToMany(mappedBy = "habit", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<HabitCompletion> completions;
+
 
     public enum HabitType {
         WEEKLY,

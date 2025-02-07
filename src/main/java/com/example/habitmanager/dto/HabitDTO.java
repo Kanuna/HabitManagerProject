@@ -2,9 +2,6 @@ package com.example.habitmanager.dto;
 
 import com.example.habitmanager.models.*;
 import lombok.*;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
-
 import java.time.LocalDate;
 import java.util.List;
 
@@ -15,7 +12,6 @@ public class HabitDTO {
     private String description;
 
     private String habitType;
-    private Habit.State state;
     private int amountAWeek;
     private List<Habit.daysEnum> specificDays;
     private List<LocalDate> specificDates;
