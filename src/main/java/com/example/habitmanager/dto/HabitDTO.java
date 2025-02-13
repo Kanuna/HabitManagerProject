@@ -14,8 +14,7 @@ public class HabitDTO {
     private String title;
     private String description;
 
-    private String habitType;
-    private Habit.State state;
+    private Habit.HabitType habitType;
     private int amountAWeek;
     private List<Habit.daysEnum> specificDays;
     private List<LocalDate> specificDates;

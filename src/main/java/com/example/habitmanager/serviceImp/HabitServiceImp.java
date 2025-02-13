@@ -24,7 +24,8 @@ public class HabitServiceImp implements HabitService {
     }
 
     @Override
-    public HabitDTOCreate createHabit(HabitDTOCreate habitDTOCreate) {
+    public HabitDTOCreate createHabit(int user_id, HabitDTOCreate habitDTOCreate) {
+        habitDTOCreate.setUser_id(user_id);
         Habit habit = modelMapper.toHabit(habitDTOCreate);
         Habit savedHabit = habitRepository.save(habit);
         return modelMapper.toHabitDTOCreate(savedHabit);
@@ -44,7 +45,7 @@ public class HabitServiceImp implements HabitService {
 
         habit.setTitle(habitDTO.getTitle());
         habit.setDescription(habitDTO.getDescription());
-        habit.setState(habitDTO.getState());
+        habit.setHabitType(habitDTO.getHabitType());
         habit.setAmountAWeek(habitDTO.getAmountAWeek());
         habit.setSpecificDays(habitDTO.getSpecificDays());
         habit.setSpecificDates(habitDTO.getSpecificDates());
@@ -81,8 +82,8 @@ public class HabitServiceImp implements HabitService {
     }
 
     @Override
-    public List<HabitDTO> getAllHabitsFromUserAndCategory(int user_id, String category) {
-        List<Habit> habits = habitRepository.findByUserAndCategory(user_id, category)
+    public List<HabitDTO> getAllHabitsFromUserAndCategory(int user_id, int category_id) {
+        List<Habit> habits = habitRepository.findByUserAndCategory(user_id, category_id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + user_id));
 
         return habits.stream()
@@ -90,10 +91,6 @@ public class HabitServiceImp implements HabitService {
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public List<HabitDTO> getAllDaysFromHabit(int habit_id) {
-        return List.of();
-    }
 
     @Override
     public List<HabitDTO> getAllHabitsFromPriority(int user_id, int priority) {

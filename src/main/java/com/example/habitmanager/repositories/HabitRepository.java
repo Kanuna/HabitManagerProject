@@ -11,7 +11,6 @@ import java.util.Optional;
 public interface HabitRepository extends JpaRepository<Habit, Integer> {
     Optional<List<Habit>> findByUserId(int user_id);
     Optional<List<Habit>> findByUserIdAndDate(int user_id, LocalDate date);
-    Optional<List<Habit>> findByUserAndCategory(int user_id, String category);
-    Optional<List<Habit>> findAllDaysFromHabit(int habit_id);
+    Optional<List<Habit>> findByUserAndCategory(int user_id, int category_id);
     Optional<List<Habit>> findByUserAndPriority(int user_id, int priority);
 }
