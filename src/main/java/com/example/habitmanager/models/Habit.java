@@ -1,4 +1,5 @@
 package com.example.habitmanager.models;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,22 +18,23 @@ public class Habit {
     @Column(nullable = true)
     private String description;
 
-    @Column(nullable = false)
-    private State state;
-
     @Column(nullable = true)
     private int amountAWeek;
+
     @Enumerated(EnumType.STRING)
     private HabitType habitType;
+
     @ElementCollection
     @Enumerated(EnumType.STRING)
     private List<daysEnum> specificDays;
 
     @ElementCollection
     private List<LocalDate> specificDates;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "stats_id", nullable = false)
     private Stats stats;
+
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = true)
     private Category category;
@@ -41,10 +43,9 @@ public class Habit {
     @JoinColumn(name = "user_id")
     private User user;
 
-    public enum State {
-        Finished,
-        Not_Finished
-    }
+    @OneToMany(mappedBy = "habit", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<HabitCompletion> habitCompletions;
+
 
     public enum HabitType {
         WEEKLY,
