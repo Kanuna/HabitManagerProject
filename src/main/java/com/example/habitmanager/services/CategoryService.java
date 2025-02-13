@@ -6,7 +6,7 @@ import com.example.habitmanager.dtoCreate.CategoryDTOCreate;
 import java.util.List;
 
 public interface CategoryService {
-    CategoryDTOCreate createCategory(CategoryDTOCreate categoryDTOCreate);
+    CategoryDTOCreate createCategory(int user_id, CategoryDTOCreate categoryDTOCreate);
     CategoryDTO getCategoryFromId(int category_id);
     CategoryDTO updateCategory(int category_id, CategoryDTO categoryDTO);
     List<CategoryDTO> getAllCategoriesFromUser(int user_id);

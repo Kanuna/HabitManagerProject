@@ -18,9 +18,9 @@ public class CategoryController {
         this.categoryServiceImp = categoryServiceImp;
     }
 
-    @PostMapping("/createCategory")
-    public ResponseEntity<CategoryDTOCreate> createCategory(@RequestBody CategoryDTOCreate categoryDTOCreate) {
-        CategoryDTOCreate createdCategory = categoryServiceImp.createCategory(categoryDTOCreate);
+    @PostMapping("/{user_id}/categories")
+    public ResponseEntity<CategoryDTOCreate> createCategory(@PathVariable int user_id, @RequestBody CategoryDTOCreate categoryDTOCreate) {
+        CategoryDTOCreate createdCategory = categoryServiceImp.createCategory(user_id, categoryDTOCreate);
 
         URI location = URI.create("/category/" + createdCategory.getCategory_id());
         return ResponseEntity.created(location).body(createdCategory);
@@ -32,7 +32,7 @@ public class CategoryController {
         return ResponseEntity.ok(categoryDTO);
     }
 
-    @GetMapping("/categories/{user_id}")
+    @GetMapping("/users/{user_id}/categories")
     public ResponseEntity<List<CategoryDTO>> getCategories(@PathVariable int user_id) {
         List<CategoryDTO> categories = categoryServiceImp.getAllCategoriesFromUser(user_id);
         return ResponseEntity.ok(categories);

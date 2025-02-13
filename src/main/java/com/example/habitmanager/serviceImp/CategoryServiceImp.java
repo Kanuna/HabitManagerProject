@@ -8,6 +8,7 @@ import com.example.habitmanager.models.Category;
 import com.example.habitmanager.repositories.CategoryRepository;
 import com.example.habitmanager.services.CategoryService;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,7 +24,8 @@ public class CategoryServiceImp implements CategoryService {
     }
 
     @Override
-    public CategoryDTOCreate createCategory(CategoryDTOCreate categoryDTOCreate) {
+    public CategoryDTOCreate createCategory(@PathVariable int user_id, CategoryDTOCreate categoryDTOCreate) {
+        categoryDTOCreate.setUser_id(user_id);
         Category category = modelMapper.toCategory(categoryDTOCreate);
         Category savedCategory = categoryRepository.save(category);
         return modelMapper.toCategoryDTOCreate(savedCategory);
