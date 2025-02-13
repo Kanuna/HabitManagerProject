@@ -23,7 +23,8 @@ public class StatsServiceImp implements StatsService {
     }
 
     @Override
-    public StatsDTOCreate createStatsDTO(StatsDTOCreate statsDTOCreate) {
+    public StatsDTOCreate createStatsDTO(int habit_id, StatsDTOCreate statsDTOCreate) {
+        statsDTOCreate.setHabitId(habit_id);
         Stats stats = modelMapper.toStats(statsDTOCreate);
         Stats savedStats = statsRepository.save(stats);
         return modelMapper.toStatsDTOCreate(savedStats);

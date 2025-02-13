@@ -19,9 +19,9 @@ public class StatsController {
         this.statsServiceImp = statsServiceImp;
     }
 
-    @PostMapping("/createStats")
-    public ResponseEntity<StatsDTOCreate> createStats(@RequestBody StatsDTOCreate statsDTOCreate) {
-        StatsDTOCreate createdStats = statsServiceImp.createStatsDTO(statsDTOCreate);
+    @PostMapping("/{habit_id}/stats")
+    public ResponseEntity<StatsDTOCreate> createStats(@PathVariable int habit_id, @RequestBody StatsDTOCreate statsDTOCreate) {
+        StatsDTOCreate createdStats = statsServiceImp.createStatsDTO(habit_id, statsDTOCreate);
 
         URI location = URI.create("/stats/" + createdStats.getStats_id());
         return ResponseEntity.created(location).body(createdStats);
