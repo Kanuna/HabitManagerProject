@@ -28,6 +28,16 @@ public class HabitCompletionController {
         return ResponseEntity.created(location).body(createdHabitCompletion);
     }
 
+
+    @PatchMapping("/completions/{completion_id}")
+    public ResponseEntity<HabitCompletionDTO> changeCompletionState(
+            @PathVariable int completion_id, @RequestBody HabitCompletionDTOCreate habitCompletionDTOCreate) {
+
+        HabitCompletionDTO habitCompletionDTO = habitCompletionServiceImp.changeState(completion_id, habitCompletionDTOCreate);
+        return ResponseEntity.ok(habitCompletionDTO);
+    }
+
+
     @GetMapping("/habits/{habit_id}/completions/{date}")
     public ResponseEntity<HabitCompletionDTO> getHabitCompletion(
             @PathVariable int habit_id,
@@ -55,6 +65,4 @@ public class HabitCompletionController {
         habitCompletionServiceImp.deleteHabitCompletion(completion_id);
         return ResponseEntity.noContent().build();
     }
-
-    //Add changeState
 }
