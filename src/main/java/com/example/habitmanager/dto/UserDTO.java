@@ -19,7 +19,7 @@ public class UserDTO {
     private int age;
     @Email(message = "Email is required")
     private String email;
-    @Size(min = 15, message = "Password must be at least 15 characters")
+    @Size(min = 8, message = "Password must be at least 15 characters")
     private String password;
     @NotNull(message = "Role is required")
     private User.RoleEnum role;
