@@ -8,6 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class StatsDTO {
+
     private int finishedTotalTimesWeek;
     private int finishedTotalTimesMonth;
     private int finishedTotalTimesYear;
