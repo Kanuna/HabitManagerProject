@@ -36,7 +36,7 @@ public class UserServiceImp implements UserService {
     @Override
     public UserDTO updateUser(int user_id, UserDTO userDTO) {
         User user = userRepository.findById(user_id)
-                .orElseThrow(() -> new ResourceNotFoundException("Address not found with id: " + user_id));
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + user_id));
 
         user.setFirstname(userDTO.getFirstname());
         user.setLastname(userDTO.getLastname());
