@@ -31,14 +31,14 @@ public class StatsServiceImp implements StatsService {
     }
 
     @Override
-    public StatsDTO getStatsFromId(int stats_id) {
+    public StatsDTO getStatsById(int stats_id) {
         Stats stats = statsRepository.findById(stats_id)
                 .orElseThrow(() -> new IllegalArgumentException("Stats not found with id: " + stats_id));
         return modelMapper.toStatsDTO(stats);
     }
 
     @Override
-    public StatsDTO getStatsFromHabitId(int habit_id) {
+    public StatsDTO getStatsByHabitId(int habit_id) {
         Stats stats = statsRepository.findByHabitId(habit_id)
                 .orElseThrow(() -> new IllegalArgumentException("Stats not found with id: " + habit_id));
         return modelMapper.toStatsDTO(stats);

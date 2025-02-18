@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface HabitService {
     HabitDTOCreate createHabit(int user_id, HabitDTOCreate habitDTOCreate);
-    HabitDTO getHabit(int habit_id);
+    HabitDTO getHabitById(int habit_id);
     HabitDTO updateHabit(int habit_id, HabitDTO habitDTO);
     void deleteHabit(int habit_id);
     List<HabitDTO> getAllHabitsFromUser(int user_id);

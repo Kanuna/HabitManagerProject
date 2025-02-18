@@ -4,9 +4,6 @@ import com.example.habitmanager.models.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
-
 import java.time.LocalDate;
 import java.util.List;
 

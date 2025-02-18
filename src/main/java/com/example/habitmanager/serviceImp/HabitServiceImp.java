@@ -32,7 +32,7 @@ public class HabitServiceImp implements HabitService {
     }
 
     @Override
-    public HabitDTO getHabit(int habit_id) {
+    public HabitDTO getHabitById(int habit_id) {
         Habit habit = habitRepository.findById(habit_id)
                 .orElseThrow(() -> new ResourceNotFoundException("Habit not found with id: " + habit_id));
         return modelMapper.toHabitDTO(habit);

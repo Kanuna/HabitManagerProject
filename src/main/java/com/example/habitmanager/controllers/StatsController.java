@@ -29,13 +29,13 @@ public class StatsController {
 
     @GetMapping("/{id}")
     public ResponseEntity<StatsDTO> getStats(@PathVariable int id) {
-        StatsDTO statsDTO = statsServiceImp.getStatsFromId(id);
+        StatsDTO statsDTO = statsServiceImp.getStatsById(id);
         return ResponseEntity.ok(statsDTO);
     }
 
     @GetMapping("/stats/{habit_id}")
     public ResponseEntity<StatsDTO> getStatsByHabitId(@PathVariable int habit_id) {
-        StatsDTO statsDTO = statsServiceImp.getStatsFromHabitId(habit_id);
+        StatsDTO statsDTO = statsServiceImp.getStatsByHabitId(habit_id);
         return ResponseEntity.ok(statsDTO);
     }
 
