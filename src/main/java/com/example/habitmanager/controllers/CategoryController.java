@@ -44,9 +44,9 @@ public class CategoryController {
         return ResponseEntity.ok(categoryDTO);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCategory(@PathVariable int id) {
-        categoryServiceImp.deleteCategory(id);
+    @DeleteMapping("/users/{user_id}/categories/{category_id}")
+    public ResponseEntity<Void> deleteCategory(@PathVariable int user_id, @PathVariable int category_id) {
+        categoryServiceImp.deleteCategory(category_id, user_id);
         return ResponseEntity.noContent().build();
     }
 }

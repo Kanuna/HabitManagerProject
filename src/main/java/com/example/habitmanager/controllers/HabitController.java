@@ -32,7 +32,7 @@ public class HabitController {
 
     @GetMapping("/{id}")
     public ResponseEntity<HabitDTO> getHabitById(@PathVariable int id) {
-        HabitDTO habitDTO = habitServiceImp.getHabit(id);
+        HabitDTO habitDTO = habitServiceImp.getHabitById(id);
         return ResponseEntity.ok(habitDTO);
     }
 
