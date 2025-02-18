@@ -10,5 +10,5 @@ public interface CategoryService {
     CategoryDTO getCategoryFromId(int category_id);
     CategoryDTO updateCategory(int category_id, CategoryDTO categoryDTO);
     List<CategoryDTO> getAllCategoriesFromUser(int user_id);
-    void deleteCategory(int category_id);
+    void deleteCategory(int category_id, int user_id);
 }
