@@ -12,9 +12,6 @@ import com.example.habitmanager.repositories.CategoryRepository;
 import com.example.habitmanager.repositories.HabitRepository;
 import com.example.habitmanager.repositories.StatsRepository;
 import com.example.habitmanager.repositories.UserRepository;
-import com.example.habitmanager.serviceImp.CategoryServiceImp;
-import com.example.habitmanager.serviceImp.HabitServiceImp;
-import com.example.habitmanager.serviceImp.StatsServiceImp;
 import com.example.habitmanager.serviceImp.UserServiceImp;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -79,7 +76,7 @@ public class UserServiceTest {
 
 
     @Test
-    void createUser_WithValidUser_shouldReturnUserDTOCreate() {
+    void createUser_WithValidUser() {
         when(modelMapper.toUser(testUserDTOCreate)).thenReturn(testUser);
         when(userRepository.save(testUser)).thenReturn(testUser);
         when(modelMapper.toUserDTOCreate(testUser)).thenReturn(testUserDTOCreate);
@@ -96,7 +93,7 @@ public class UserServiceTest {
     }
 
     @Test
-    void getUser_WithValidId_shouldReturnUserDTOById() {
+    void getUser_WithValidId() {
         UserDTO expectedDTO = new UserDTO();
         expectedDTO.setFirstname("test");
         expectedDTO.setLastname("test");
@@ -130,7 +127,7 @@ public class UserServiceTest {
     }
 
     @Test
-    void updateUser_WithValidUser_shouldUpdateUser() {
+    void updateUser_WithValidUser() {
         UserDTO userDTO = new UserDTO();
         userDTO.setFirstname("newtest");
         userDTO.setLastname("newtest");
@@ -195,15 +192,16 @@ public class UserServiceTest {
 
         Stats stats = new Stats();
 
-        Habit habit = new Habit();
-        habit.setHabit_id(1);
-        habit.setStats(stats);
-        habit.setUser(user);
-
-
         Category category = new Category();
         category.setCategory_id(1);
         category.setUser(user);
+
+        Habit habit = new Habit();
+        habit.setHabit_id(1);
+        habit.setStats(stats);
+        habit.setCategory(category);
+        habit.setUser(user);
+
 
         when(userRepository.findById(1)).thenReturn(Optional.of(user));
         userServiceImp.deleteUser(user_id);
