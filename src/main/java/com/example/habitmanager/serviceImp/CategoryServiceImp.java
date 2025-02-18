@@ -5,21 +5,26 @@ import com.example.habitmanager.dto.CategoryDTO;
 import com.example.habitmanager.dtoCreate.CategoryDTOCreate;
 import com.example.habitmanager.mapper.ModelMapper;
 import com.example.habitmanager.models.Category;
+import com.example.habitmanager.models.Habit;
 import com.example.habitmanager.repositories.CategoryRepository;
 import com.example.habitmanager.services.CategoryService;
+import com.example.habitmanager.repositories.HabitRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public class CategoryServiceImp implements CategoryService {
     private final CategoryRepository categoryRepository;
+    private final HabitRepository habitRepository;
     private final ModelMapper modelMapper;
 
-    public CategoryServiceImp(CategoryRepository categoryRepository, ModelMapper modelMapper) {
+    public CategoryServiceImp(CategoryRepository categoryRepository, HabitRepository habitRepository, ModelMapper modelMapper) {
         this.categoryRepository = categoryRepository;
+        this.habitRepository = habitRepository;
         this.modelMapper = modelMapper;
     }
 
@@ -61,9 +66,19 @@ public class CategoryServiceImp implements CategoryService {
     }
 
     @Override
-    public void deleteCategory(int category_id) {
+    public void deleteCategory(int category_id, int user_id) {
         Category category = categoryRepository.findById(category_id)
                 .orElseThrow(() -> new RuntimeException("Category not found with id: " + category_id));
+
+        Optional<List<Habit>> optionalHabits = habitRepository.findByUserAndCategory(user_id, category_id);
+        if(optionalHabits.isPresent()) {
+            List<Habit> habits = optionalHabits.get();
+            for (Habit habit : habits) {
+                habit.setCategory(null);
+                habitRepository.save(habit);
+            }
+        }
+
         categoryRepository.deleteById(category_id);
     }
 }
