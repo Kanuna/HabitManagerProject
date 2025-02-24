@@ -63,7 +63,7 @@ public class HabitServiceImp implements HabitService {
 
     @Override
     public List<HabitDTO> getAllHabitsFromUser(int user_id) {
-        List<Habit> habits = habitRepository.findByUserId(user_id)
+        List<Habit> habits = habitRepository.findByUser_User_id(user_id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + user_id));
 
         return habits.stream()
@@ -73,7 +73,7 @@ public class HabitServiceImp implements HabitService {
 
     @Override
     public List<HabitDTO> getAllHabitsFromUserAndDate(int user_id, LocalDate date) {
-        List<Habit> habits = habitRepository.findByUserIdAndDate(user_id, date)
+        List<Habit> habits = habitRepository.findByUser_User_idAndDate(user_id, date)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + user_id));
 
         return habits.stream()
@@ -83,7 +83,7 @@ public class HabitServiceImp implements HabitService {
 
     @Override
     public List<HabitDTO> getAllHabitsFromUserAndCategory(int user_id, int category_id) {
-        List<Habit> habits = habitRepository.findByUserAndCategory(user_id, category_id)
+        List<Habit> habits = habitRepository.findByUser_User_idAndCategory_Category_id(user_id, category_id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + user_id));
 
         return habits.stream()
@@ -94,7 +94,7 @@ public class HabitServiceImp implements HabitService {
 
     @Override
     public List<HabitDTO> getAllHabitsFromUserAndPriority(int user_id, Habit.Priority priority) {
-        List<Habit> habits = habitRepository.findByUserAndPriority(user_id, priority)
+        List<Habit> habits = habitRepository.findByUser_User_idAndPriority(user_id, priority)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + user_id));
 
         return habits.stream()

@@ -26,21 +26,21 @@ public class CategoryController {
         return ResponseEntity.created(location).body(createdCategory);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<CategoryDTO> getCategory(@PathVariable int id) {
-        CategoryDTO categoryDTO = categoryServiceImp.getCategoryFromId(id);
+    @GetMapping("/{category_id}")
+    public ResponseEntity<CategoryDTO> getCategory(@PathVariable int category_id) {
+        CategoryDTO categoryDTO = categoryServiceImp.getCategoryFromId(category_id);
         return ResponseEntity.ok(categoryDTO);
     }
 
-    @GetMapping("/users/{user_id}/categories")
+/*    @GetMapping("/users/{user_id}/categories")
     public ResponseEntity<List<CategoryDTO>> getCategories(@PathVariable int user_id) {
         List<CategoryDTO> categories = categoryServiceImp.getAllCategoriesFromUser(user_id);
         return ResponseEntity.ok(categories);
-    }
+    }*/
 
-    @PutMapping("/{id}")
-    public ResponseEntity<CategoryDTO> updateCategory(@PathVariable int id, @RequestBody CategoryDTO categoryDTO) {
-        categoryServiceImp.updateCategory(id, categoryDTO);
+    @PutMapping("/{category_id}")
+    public ResponseEntity<CategoryDTO> updateCategory(@PathVariable int category_id, @RequestBody CategoryDTO categoryDTO) {
+        categoryServiceImp.updateCategory(category_id, categoryDTO);
         return ResponseEntity.ok(categoryDTO);
     }
 

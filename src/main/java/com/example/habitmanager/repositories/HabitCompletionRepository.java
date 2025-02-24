@@ -10,6 +10,9 @@ import java.util.List;
 
 @Repository
 public interface HabitCompletionRepository extends JpaRepository<HabitCompletion, Integer> {
-    Optional<HabitCompletion> findByDateAndHabitId(LocalDate date, int habit_id);
-    Optional<List<HabitCompletion>> findByHabitId(int habit_id);
+/*    Optional<HabitCompletion> findByDateAndHabitId(LocalDate date, int habit_id);
+    Optional<List<HabitCompletion>> findByHabitId(int habit_id);*/
+
+    Optional<HabitCompletion> findByDateAndHabit_Habit_id(LocalDate date, int habit_id);
+    Optional<List<HabitCompletion>> findByHabit_Habit_id(int habit_id);
 }

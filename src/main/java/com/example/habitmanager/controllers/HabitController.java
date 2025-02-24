@@ -7,7 +7,6 @@ import com.example.habitmanager.serviceImp.HabitServiceImp;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.net.URI;
 import java.time.LocalDate;
 import java.util.List;
@@ -55,11 +54,11 @@ public class HabitController {
     }
 
 
-    @GetMapping("/users/{user_id}/habits/{category_id}")
+/*    @GetMapping("/users/{user_id}/habits/{category_id}")
     public ResponseEntity<List<HabitDTO>> getHabitsByCategoryId(@PathVariable int user_id, @PathVariable int category_id) {
         List<HabitDTO> habits = habitServiceImp.getAllHabitsFromUserAndCategory(user_id, category_id);
         return ResponseEntity.ok(habits);
-    }
+    }*/
 
 
     @GetMapping("/users/{user_id}/habits/{priority}")
