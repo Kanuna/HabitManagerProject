@@ -19,7 +19,7 @@ public class CategoryDTO {
     public String name;
     @NotNull(message = "Color code is required")
     public String colorCode;
-    private Habit habits;
+    private List<Habit> habits;
     @NotNull
     private User user;
 
