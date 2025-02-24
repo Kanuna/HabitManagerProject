@@ -2,6 +2,7 @@ package com.example.habitmanager.controllers;
 
 import com.example.habitmanager.dto.HabitDTO;
 import com.example.habitmanager.dtoCreate.HabitDTOCreate;
+import com.example.habitmanager.models.Habit;
 import com.example.habitmanager.serviceImp.HabitServiceImp;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
@@ -62,8 +63,8 @@ public class HabitController {
 
 
     @GetMapping("/users/{user_id}/habits/{priority}")
-    public ResponseEntity<List<HabitDTO>> getHabitsByPriority(@PathVariable int user_id, @PathVariable int priority) {
-        List<HabitDTO> habits = habitServiceImp.getAllHabitsFromUserAndPriority(user_id, priority);
+    public ResponseEntity<List<HabitDTO>> getHabitsByPriority(@PathVariable int user_id, @PathVariable Habit.Priority priority) {
+        List<HabitDTO> habits = habitServiceImp.getAllHabitsFromUserAndPriority(user_id, Habit.Priority.LOW);
         return ResponseEntity.ok(habits);
     }
 
