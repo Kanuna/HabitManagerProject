@@ -63,7 +63,7 @@ public class HabitController {
 
     @GetMapping("/users/{user_id}/habits/{priority}")
     public ResponseEntity<List<HabitDTO>> getHabitsByPriority(@PathVariable int user_id, @PathVariable int priority) {
-        List<HabitDTO> habits = habitServiceImp.getAllHabitsFromPriority(user_id, priority);
+        List<HabitDTO> habits = habitServiceImp.getAllHabitsFromUserAndPriority(user_id, priority);
         return ResponseEntity.ok(habits);
     }
 

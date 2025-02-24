@@ -93,7 +93,7 @@ public class HabitServiceImp implements HabitService {
 
 
     @Override
-    public List<HabitDTO> getAllHabitsFromPriority(int user_id, int priority) {
+    public List<HabitDTO> getAllHabitsFromUserAndPriority(int user_id, Habit.Priority priority) {
         List<Habit> habits = habitRepository.findByUserAndPriority(user_id, priority)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + user_id));
 
