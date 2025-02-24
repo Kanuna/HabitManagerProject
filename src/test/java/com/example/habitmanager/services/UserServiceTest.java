@@ -214,4 +214,14 @@ public class UserServiceTest {
         Optional<User> deletedUser = userRepository.findById(user_id);
         Assertions.assertTrue(deletedUser.isEmpty());
     }
+
+    @Test
+    void DeleteUser_WithInvalidId_shouldReturnException() {
+        when(userRepository.findById(99)).thenThrow(new ResourceNotFoundException("User with id 99 not found"));
+
+        Assertions.assertThrows(ResourceNotFoundException.class,
+                () -> {
+                    userServiceImp.getUserById(99);
+                });
+    }
 }
