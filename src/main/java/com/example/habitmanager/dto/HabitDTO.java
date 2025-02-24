@@ -13,6 +13,7 @@ public class HabitDTO {
     @NotBlank(message = "Title is required")
     private String title;
     private String description;
+    private Habit.Priority priority;
 
     @NotNull(message = "Habit type is required")
     private Habit.HabitType habitType;

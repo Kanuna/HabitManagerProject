@@ -1,7 +1,9 @@
 package com.example.habitmanager.models;
 
+import com.example.habitmanager.mapper.PriorityConverter;
 import jakarta.persistence.*;
 import lombok.*;
+import org.mapstruct.EnumMapping;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -23,6 +25,9 @@ public class Habit {
 
     @Enumerated(EnumType.STRING)
     private HabitType habitType;
+
+    @Convert(converter = PriorityConverter.class)
+    private Priority priority;
 
     @ElementCollection
     @Enumerated(EnumType.STRING)
@@ -46,6 +51,31 @@ public class Habit {
     @OneToMany(mappedBy = "habit", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<HabitCompletion> habitCompletions;
 
+
+    public enum Priority {
+        LOW(1),
+        MEDIUM(2),
+        HIGH(3);
+
+        private final int value;
+
+        Priority(int value) {
+            this.value = value;
+        }
+
+        public int getValue() {
+            return value;
+        }
+
+        public static Priority fromValue(int value) {
+            for (Priority priority : Priority.values()) {
+                if (priority.value == value) {
+                    return priority;
+                }
+            }
+            throw new IllegalArgumentException("Invalid priority value: " + value);
+        }
+    }
 
     public enum HabitType {
         WEEKLY,
