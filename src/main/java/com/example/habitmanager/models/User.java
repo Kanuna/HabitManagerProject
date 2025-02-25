@@ -25,6 +25,7 @@ public class User {
     @Column(nullable = false)
     private RoleEnum role;
 
+
     public enum RoleEnum {
         ADMIN, USER
     }
@@ -33,6 +34,8 @@ public class User {
     private List<Habit> habits;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Category> categories;
+
+
 
 
     public void setFirstname(String firstname) {

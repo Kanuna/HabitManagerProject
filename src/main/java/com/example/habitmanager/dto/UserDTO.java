@@ -1,5 +1,6 @@
 package com.example.habitmanager.dto;
 
+import com.example.habitmanager.models.Category;
 import com.example.habitmanager.models.User;
 import jakarta.validation.constraints.*;
 import lombok.Getter;

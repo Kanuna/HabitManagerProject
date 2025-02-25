@@ -360,7 +360,7 @@ public class HabitServiceTest {
         HabitDTO habitDTO2 = new HabitDTO();
         habitDTO2.setTitle("Habit2");
 
-        when(habitRepository.findByUserId(user_id)).thenReturn(Optional.of(habits));
+        when(habitRepository.findByUser_UserId(user_id)).thenReturn(Optional.of(habits));
         when(modelMapper.toHabitDTO(habit1)).thenReturn(habitDTO1);
         when(modelMapper.toHabitDTO(habit2)).thenReturn(habitDTO2);
 
@@ -372,7 +372,7 @@ public class HabitServiceTest {
     }
     @Test
     void getAllHabits_withInvalidUserId(){
-        when(habitRepository.findByUserId(99))
+        when(habitRepository.findByUser_UserId(99))
                 .thenThrow(new ResourceNotFoundException("User with id 99 not found"));
 
         Assertions.assertThrows(ResourceNotFoundException.class,
@@ -405,7 +405,7 @@ public class HabitServiceTest {
         HabitDTO habitDTO2 = new HabitDTO();
         habitDTO2.setTitle("Habit2");
 
-        when(habitRepository.findByUserId(testUser.getUser_id())).thenReturn(Optional.of(habits));
+        when(habitRepository.findByUser_UserId(testUser.getUser_id())).thenReturn(Optional.of(habits));
         when(modelMapper.toHabitDTO(habit1)).thenReturn(habitDTO1);
         when(modelMapper.toHabitDTO(habit2)).thenReturn(habitDTO2);
 
@@ -420,7 +420,7 @@ public class HabitServiceTest {
     @Test
     void getAllHabits_withInvalidUserIdAndValidDate_shouldThrowException(){
         LocalDate date = LocalDate.of(2025, 2, 3);
-        when(habitRepository.findByUserIdAndDate(99, date))
+        when(habitRepository.findByUser_UserIdAndDate(99, date))
             .thenThrow(new ResourceNotFoundException("Habits with user id 99 not found"));
 
         Assertions.assertThrows(ResourceNotFoundException.class,
@@ -451,7 +451,7 @@ public class HabitServiceTest {
         habitDTO2.setTitle("Habit2");
         habitDTO2.setCategory(testCategory);
 
-        when(habitRepository.findByUserAndCategory(testUser.getUser_id(), testCategory.getCategory_id())).thenReturn(Optional.of(habits));
+        when(habitRepository.findByUser_UserIdAndCategory_CategoryId(testUser.getUser_id(), testCategory.getCategory_id())).thenReturn(Optional.of(habits));
         when(modelMapper.toHabitDTO(habit1)).thenReturn(habitDTO1);
         when(modelMapper.toHabitDTO(habit2)).thenReturn(habitDTO2);
 
@@ -466,7 +466,7 @@ public class HabitServiceTest {
     }
     @Test
     void getAllHabits_withInvalidUserIdAndValidCategory_shouldThrowException(){
-        when(habitRepository.findByUserAndCategory(99, testCategory.getCategory_id()))
+        when(habitRepository.findByUser_UserIdAndCategory_CategoryId(99, testCategory.getCategory_id()))
                 .thenThrow(new ResourceNotFoundException("Habits with user id 99 not found"));
 
         Assertions.assertThrows(ResourceNotFoundException.class,
@@ -500,7 +500,7 @@ public class HabitServiceTest {
         habitDTO2.setTitle("Habit2");
         habitDTO2.setCategory(testCategory);
 
-        when(habitRepository.findByUserAndPriority(testUser.getUser_id(), priority)).thenReturn(Optional.of(habits));
+        when(habitRepository.findByUser_UserIdAndPriority(testUser.getUser_id(), priority)).thenReturn(Optional.of(habits));
         when(modelMapper.toHabitDTO(habit1)).thenReturn(habitDTO1);
         when(modelMapper.toHabitDTO(habit2)).thenReturn(habitDTO2);
 
@@ -518,7 +518,7 @@ public class HabitServiceTest {
     @Test
     void getAllHabits_withInvalidUserAndValidPriority_shouldThrowException(){
         Habit.Priority priority = Habit.Priority.LOW;
-        when(habitRepository.findByUserAndPriority(99, priority))
+        when(habitRepository.findByUser_UserIdAndPriority(99, priority))
                 .thenThrow(new ResourceNotFoundException("Habits with user id 99 not found"));
 
         Assertions.assertThrows(ResourceNotFoundException.class,

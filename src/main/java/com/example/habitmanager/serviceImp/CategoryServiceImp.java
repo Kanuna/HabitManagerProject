@@ -57,8 +57,8 @@ public class CategoryServiceImp implements CategoryService {
 
     @Override
     public List<CategoryDTO> getAllCategoriesFromUser(int user_id) {
-        List<Category> categories = categoryRepository.findByUser_User_id(user_id)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + user_id));
+        List<Category> categories = categoryRepository.findByUser_User_id(user_id);
+                //.orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + user_id));
 
         return categories.stream()
                 .map(modelMapper::toCategoryDTO)
