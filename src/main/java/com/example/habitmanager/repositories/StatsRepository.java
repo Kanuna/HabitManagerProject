@@ -9,5 +9,5 @@ import java.util.Optional;
 
 @Repository
 public interface StatsRepository extends JpaRepository<Stats, Integer> {
-    Optional<Stats> findByHabit_Id(int habit_id);
+    Optional<Stats> findByHabit_id(int habit_id);
 }

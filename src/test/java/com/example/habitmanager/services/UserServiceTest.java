@@ -27,7 +27,7 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 public class UserServiceTest {
 
-   /* @Mock
+    @Mock
     private UserRepository userRepository;
     @Mock
     private HabitRepository habitRepository;
@@ -49,7 +49,7 @@ public class UserServiceTest {
     @BeforeEach
     void setUp() {
         testUser = new User();
-        testUser.setUser_id(1);
+        testUser.setId(1);
         testUser.setFirstname("test");
         testUser.setLastname("test");
         testUser.setAge(1);
@@ -84,7 +84,7 @@ public class UserServiceTest {
         UserDTOCreate createdUser = userServiceImp.createUser(testUserDTOCreate);
 
         Assertions.assertNotNull(createdUser);
-        Assertions.assertEquals(testUserDTOCreate.getUser_id(), createdUser.getUser_id());
+        Assertions.assertEquals(testUserDTOCreate.getId(), createdUser.getId());
         Assertions.assertEquals(testUserDTOCreate.getFirstname(), createdUser.getFirstname());
         Assertions.assertEquals(testUserDTOCreate.getLastname(), createdUser.getLastname());
         Assertions.assertEquals(testUserDTOCreate.getEmail(), createdUser.getEmail());
@@ -182,7 +182,7 @@ public class UserServiceTest {
     void DeleteUser_WithValidId_shouldDeleteUserAndRelatedEntities() {
         int user_id = 1;
         User user = new User();
-        user.setUser_id(user_id);
+        user.setId(user_id);
         user.setFirstname("test");
         user.setLastname("test");
         user.setAge(1);
@@ -193,11 +193,11 @@ public class UserServiceTest {
         Stats stats = new Stats();
 
         Category category = new Category();
-        category.setCategory_id(1);
+        category.setId(1);
         category.setUser(user);
 
         Habit habit = new Habit();
-        habit.setHabit_id(1);
+        habit.setId(1);
         habit.setStats(stats);
         habit.setCategory(category);
         habit.setUser(user);
@@ -223,5 +223,5 @@ public class UserServiceTest {
                 () -> {
                     userServiceImp.getUserById(99);
                 });
-    }*/
+    }
 }

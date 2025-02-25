@@ -39,7 +39,7 @@ public class StatsServiceImp implements StatsService {
 
     @Override
     public StatsDTO getStatsByHabitId(int habit_id) {
-        Stats stats = statsRepository.findByHabit_Id(habit_id)
+        Stats stats = statsRepository.findByHabit_id(habit_id)
                 .orElseThrow(() -> new IllegalArgumentException("Stats not found with id: " + habit_id));
         return modelMapper.toStatsDTO(stats);
     }

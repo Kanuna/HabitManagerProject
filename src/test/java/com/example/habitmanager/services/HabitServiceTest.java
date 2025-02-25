@@ -27,7 +27,7 @@ import java.util.*;
 @ExtendWith(MockitoExtension.class)
 public class HabitServiceTest {
 
-    /*@Mock
+    @Mock
     private HabitRepository habitRepository;
     @Mock
     private CategoryRepository categoryRepository;
@@ -51,7 +51,7 @@ public class HabitServiceTest {
     @BeforeEach
     void setUp() {
         testStats = new Stats();
-        testStats.setStats_id(1);
+        testStats.setId(1);
         testStats.setFinishedTotalTimesWeek(0);
         testStats.setFinishedTotalTimesMonth(0);
         testStats.setNotFinishedTotalTimesWeek(0);
@@ -59,7 +59,7 @@ public class HabitServiceTest {
         testStats.setNotFinishedTotalTimesYear(0);
 
         testUser = new User();
-        testUser.setUser_id(1);
+        testUser.setId(1);
         testUser.setFirstname("Test");
         testUser.setLastname("User");
         testUser.setAge(1);
@@ -69,14 +69,14 @@ public class HabitServiceTest {
         testUser.setCategories(Collections.singletonList(testCategory));
 
         testCategory = new Category();
-        testCategory.setCategory_id(1);
+        testCategory.setId(1);
         testCategory.setName("test category");
         testCategory.setColorCode("#787276");
         testCategory.setUser(testUser);
 
 
         testHabit = new Habit();
-        testHabit.setHabit_id(1);
+        testHabit.setId(1);
         testHabit.setTitle("Test habit");
         testHabit.setDescription("Test habit description");
         testHabit.setAmountAWeek(0);
@@ -163,7 +163,7 @@ public class HabitServiceTest {
     @Test
     void getHabit_WithValidId() {
         Stats expectedStats = new Stats();
-        expectedStats.setStats_id(1);
+        expectedStats.setId(1);
         expectedStats.setFinishedTotalTimesWeek(0);
         expectedStats.setFinishedTotalTimesMonth(0);
         expectedStats.setFinishedTotalTimesYear(0);
@@ -172,12 +172,12 @@ public class HabitServiceTest {
         expectedStats.setNotFinishedTotalTimesYear(0);
 
         Category expectedCategory = new Category();
-        expectedCategory.setCategory_id(1);
+        expectedCategory.setId(1);
         expectedCategory.setName("test category");
         expectedCategory.setColorCode("#787276");
 
         User expectedUser = new User();
-        expectedUser.setUser_id(1);
+        expectedUser.setId(1);
         expectedUser.setFirstname("Test");
         expectedUser.setLastname("Test");
         expectedUser.setAge(1);
@@ -227,7 +227,7 @@ public class HabitServiceTest {
     void updateHabit_WithValidId()
     {
         Stats newStats = new Stats();
-        newStats.setStats_id(1);
+        newStats.setId(1);
         newStats.setFinishedTotalTimesWeek(1);
         newStats.setFinishedTotalTimesMonth(1);
         newStats.setNotFinishedTotalTimesWeek(2);
@@ -236,12 +236,12 @@ public class HabitServiceTest {
         newStats.setNotFinishedTotalTimesYear(2);
 
         Category newCategory = new Category();
-        newCategory.setCategory_id(1);
+        newCategory.setId(1);
         newCategory.setName("new test category");
         newCategory.setColorCode("#787878");
 
         User newUser = new User();
-        newUser.setUser_id(1);
+        newUser.setId(1);
         newUser.setFirstname("Test");
         newUser.setLastname("Test");
         newUser.setAge(1);
@@ -261,7 +261,7 @@ public class HabitServiceTest {
         habitDTO.setCategory(newCategory);
 
         Habit habit = new Habit();
-        habit.setHabit_id(1);
+        habit.setId(1);
         habit.setTitle("Test habit");
         habit.setDescription("Test habit description");
         habit.setHabitType(Habit.HabitType.WEEKLY);
@@ -309,7 +309,7 @@ public class HabitServiceTest {
     void deleteHabit_WithValidId_shouldDeleteHabitAndStats() {
         int habit_id = 1;
         Habit habit = new Habit();
-        habit.setHabit_id(habit_id);
+        habit.setId(habit_id);
         habit.setTitle("Test habit");
         habit.setDescription("Test habit description");
         habit.setHabitType(Habit.HabitType.WEEKLY);
@@ -341,7 +341,7 @@ public class HabitServiceTest {
     void getAllHabits_withValidUserId(){
         int user_id = 1;
         User user = new User();
-        user.setUser_id(user_id);
+        user.setId(user_id);
 
 
         Habit habit1 = new Habit();
@@ -360,7 +360,7 @@ public class HabitServiceTest {
         HabitDTO habitDTO2 = new HabitDTO();
         habitDTO2.setTitle("Habit2");
 
-        when(habitRepository.findByUser_UserId(user_id)).thenReturn(Optional.of(habits));
+        when(habitRepository.findByUser_id(user_id)).thenReturn(Optional.of(habits));
         when(modelMapper.toHabitDTO(habit1)).thenReturn(habitDTO1);
         when(modelMapper.toHabitDTO(habit2)).thenReturn(habitDTO2);
 
@@ -372,7 +372,7 @@ public class HabitServiceTest {
     }
     @Test
     void getAllHabits_withInvalidUserId(){
-        when(habitRepository.findByUser_UserId(99))
+        when(habitRepository.findByUser_id(99))
                 .thenThrow(new ResourceNotFoundException("User with id 99 not found"));
 
         Assertions.assertThrows(ResourceNotFoundException.class,
@@ -381,53 +381,6 @@ public class HabitServiceTest {
                 });
     }
 
-    @Test
-    void getAllHabits_withValidUserIdAndDate(){
-        Habit habit1 = new Habit();
-        habit1.setUser(testUser);
-        habit1.setTitle("Habit1");
-        habit1.setSpecificDates(Arrays.asList(
-                LocalDate.of(2025, 2, 1),
-                LocalDate.of(2025, 2, 2)));
-
-        Habit habit2 = new Habit();
-        habit2.setUser(testUser);
-        habit2.setTitle("Habit2");
-        habit2.setSpecificDates(Arrays.asList(
-                LocalDate.of(2025, 2, 1),
-                LocalDate.of(2025, 2, 2)));
-
-        List<Habit> habits = Arrays.asList(habit1, habit2);
-
-        HabitDTO habitDTO1 = new HabitDTO();
-        habitDTO1.setTitle("Habit1");
-
-        HabitDTO habitDTO2 = new HabitDTO();
-        habitDTO2.setTitle("Habit2");
-
-        when(habitRepository.findByUser_UserId(testUser.getUser_id())).thenReturn(Optional.of(habits));
-        when(modelMapper.toHabitDTO(habit1)).thenReturn(habitDTO1);
-        when(modelMapper.toHabitDTO(habit2)).thenReturn(habitDTO2);
-
-        List<HabitDTO> result = habitServiceImp.getAllHabitsFromUser(testUser.getUser_id());
-
-        Assertions.assertNotNull(result);
-        Assertions.assertEquals(habitDTO1.getTitle(), result.get(0).getTitle());
-        Assertions.assertEquals(habitDTO2.getSpecificDates(), result.get(0).getSpecificDates());
-        Assertions.assertEquals(habitDTO2.getTitle(), result.get(1).getTitle());
-        Assertions.assertEquals(habitDTO2.getSpecificDates(), result.get(1).getSpecificDates());
-    }
-    @Test
-    void getAllHabits_withInvalidUserIdAndValidDate_shouldThrowException(){
-        LocalDate date = LocalDate.of(2025, 2, 3);
-        when(habitRepository.findByUser_UserIdAndDate(99, date))
-            .thenThrow(new ResourceNotFoundException("Habits with user id 99 not found"));
-
-        Assertions.assertThrows(ResourceNotFoundException.class,
-                () -> {
-                    habitServiceImp.getAllHabitsFromUserAndDate(99, date);
-                });
-    }
 
     @Test
     void getAllHabits_withValidUserIdAndCategory(){
@@ -451,11 +404,11 @@ public class HabitServiceTest {
         habitDTO2.setTitle("Habit2");
         habitDTO2.setCategory(testCategory);
 
-        when(habitRepository.findByUser_UserIdAndCategory_CategoryId(testUser.getUser_id(), testCategory.getCategory_id())).thenReturn(Optional.of(habits));
+        when(habitRepository.findByUser_idAndCategory_id(testUser.getId(), testCategory.getId())).thenReturn(Optional.of(habits));
         when(modelMapper.toHabitDTO(habit1)).thenReturn(habitDTO1);
         when(modelMapper.toHabitDTO(habit2)).thenReturn(habitDTO2);
 
-        List<HabitDTO> result = habitServiceImp.getAllHabitsFromUserAndCategory(testUser.getUser_id(), testCategory.getCategory_id());
+        List<HabitDTO> result = habitServiceImp.getAllHabitsFromUserAndCategory(testUser.getId(), testCategory.getId());
 
         Assertions.assertNotNull(result);
         Assertions.assertEquals(2, result.size());
@@ -466,12 +419,12 @@ public class HabitServiceTest {
     }
     @Test
     void getAllHabits_withInvalidUserIdAndValidCategory_shouldThrowException(){
-        when(habitRepository.findByUser_UserIdAndCategory_CategoryId(99, testCategory.getCategory_id()))
+        when(habitRepository.findByUser_idAndCategory_id(99, testCategory.getId()))
                 .thenThrow(new ResourceNotFoundException("Habits with user id 99 not found"));
 
         Assertions.assertThrows(ResourceNotFoundException.class,
                 () -> {
-                    habitServiceImp.getAllHabitsFromUserAndCategory(99, testCategory.getCategory_id());
+                    habitServiceImp.getAllHabitsFromUserAndCategory(99, testCategory.getId());
                 });
     }
 
@@ -500,11 +453,11 @@ public class HabitServiceTest {
         habitDTO2.setTitle("Habit2");
         habitDTO2.setCategory(testCategory);
 
-        when(habitRepository.findByUser_UserIdAndPriority(testUser.getUser_id(), priority)).thenReturn(Optional.of(habits));
+        when(habitRepository.findByUser_idAndPriority(testUser.getId(), priority)).thenReturn(Optional.of(habits));
         when(modelMapper.toHabitDTO(habit1)).thenReturn(habitDTO1);
         when(modelMapper.toHabitDTO(habit2)).thenReturn(habitDTO2);
 
-        List<HabitDTO> result = habitServiceImp.getAllHabitsFromUserAndPriority(testUser.getUser_id(), priority);
+        List<HabitDTO> result = habitServiceImp.getAllHabitsFromUserAndPriority(testUser.getId(), priority);
 
         Assertions.assertNotNull(result);
         Assertions.assertEquals(2, result.size());
@@ -518,12 +471,12 @@ public class HabitServiceTest {
     @Test
     void getAllHabits_withInvalidUserAndValidPriority_shouldThrowException(){
         Habit.Priority priority = Habit.Priority.LOW;
-        when(habitRepository.findByUser_UserIdAndPriority(99, priority))
+        when(habitRepository.findByUser_idAndPriority(99, priority))
                 .thenThrow(new ResourceNotFoundException("Habits with user id 99 not found"));
 
         Assertions.assertThrows(ResourceNotFoundException.class,
                 () -> {
                     habitServiceImp.getAllHabitsFromUserAndPriority(99, priority);
                 });
-    }*/
+    }
 }
