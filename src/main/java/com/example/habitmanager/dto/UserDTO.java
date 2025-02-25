@@ -1,8 +1,11 @@
 package com.example.habitmanager.dto;
+import com.example.habitmanager.models.Category;
+import com.example.habitmanager.models.Habit;
 import com.example.habitmanager.models.User;
 import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
+import java.util.List;
 
 @Getter
 @Setter
@@ -19,7 +22,8 @@ public class UserDTO {
     private String password;
     @NotNull(message = "Role is required")
     private User.RoleEnum role;
-
+    private List<Habit> habits;
+    private List<Category> categories;
 
     public void setFirstname(String firstname) {
         if(!firstname.isEmpty()){
