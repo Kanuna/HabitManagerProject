@@ -8,5 +8,5 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UserDTOCreate extends UserDTO {
-    private int user_id;
+    private int id;
 }

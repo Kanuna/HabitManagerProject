@@ -2,6 +2,8 @@ package com.example.habitmanager.dto;
 
 import com.example.habitmanager.models.Habit;
 import com.example.habitmanager.models.User;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -12,10 +14,12 @@ import java.util.List;
 @Getter
 @Setter
 public class CategoryDTO {
-    private int category_id;
+    @NotBlank(message = "Name is required")
     public String name;
+    @NotNull(message = "Color code is required")
     public String colorCode;
-    private Habit habits;
+    private List<Habit> habits;
+    @NotNull
     private User user;
 
 

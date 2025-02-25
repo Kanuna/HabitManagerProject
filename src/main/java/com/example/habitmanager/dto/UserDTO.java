@@ -1,32 +1,35 @@
 package com.example.habitmanager.dto;
-
-import com.example.habitmanager.models.Category;
-import com.example.habitmanager.models.Habit;
 import com.example.habitmanager.models.User;
+import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.List;
 
 @Getter
 @Setter
 public class UserDTO {
-    private String first_name;
-    private String last_name;
+    @NotBlank(message = "Firstname is required")
+    private String firstname;
+    @NotBlank(message = "Lastname is required")
+    private String lastname;
+    @NotBlank(message = "Age is required")
+    private int age;
+    @Email(message = "Email is required")
     private String email;
+    @Size(min = 8, message = "Password must be at least 8 characters")
     private String password;
+    @NotNull(message = "Role is required")
     private User.RoleEnum role;
 
 
-    public void setFirst_name(String first_name) {
-        if(!first_name.isEmpty()){
-            this.first_name = first_name;
+    public void setFirstname(String firstname) {
+        if(!firstname.isEmpty()){
+            this.firstname = firstname;
         }
     }
 
-    public void setLast_name(String last_name) {
-        if(!last_name.isEmpty()){
-            this.last_name = last_name;
+    public void setLastname(String lastname) {
+        if(!lastname.isEmpty()){
+            this.lastname = lastname;
         }
     }
 

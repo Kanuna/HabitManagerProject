@@ -19,23 +19,23 @@ public class StatsController {
         this.statsServiceImp = statsServiceImp;
     }
 
-    @PostMapping("/createStats")
-    public ResponseEntity<StatsDTOCreate> createStats(@RequestBody StatsDTOCreate statsDTOCreate) {
-        StatsDTOCreate createdStats = statsServiceImp.createStatsDTO(statsDTOCreate);
+    @PostMapping("/{habit_id}/stats")
+    public ResponseEntity<StatsDTOCreate> createStats(@PathVariable int habit_id, @RequestBody StatsDTOCreate statsDTOCreate) {
+        StatsDTOCreate createdStats = statsServiceImp.createStatsDTO(habit_id, statsDTOCreate);
 
-        URI location = URI.create("/stats/" + createdStats.getStats_id());
+        URI location = URI.create("/stats/" + createdStats.getId());
         return ResponseEntity.created(location).body(createdStats);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<StatsDTO> getStats(@PathVariable int id) {
-        StatsDTO statsDTO = statsServiceImp.getStatsFromId(id);
+        StatsDTO statsDTO = statsServiceImp.getStatsById(id);
         return ResponseEntity.ok(statsDTO);
     }
 
     @GetMapping("/stats/{habit_id}")
     public ResponseEntity<StatsDTO> getStatsByHabitId(@PathVariable int habit_id) {
-        StatsDTO statsDTO = statsServiceImp.getStatsFromHabitId(habit_id);
+        StatsDTO statsDTO = statsServiceImp.getStatsByHabitId(habit_id);
         return ResponseEntity.ok(statsDTO);
     }
 

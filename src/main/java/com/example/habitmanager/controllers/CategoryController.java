@@ -18,35 +18,35 @@ public class CategoryController {
         this.categoryServiceImp = categoryServiceImp;
     }
 
-    @PostMapping("/createCategory")
-    public ResponseEntity<CategoryDTOCreate> createCategory(@RequestBody CategoryDTOCreate categoryDTOCreate) {
-        CategoryDTOCreate createdCategory = categoryServiceImp.createCategory(categoryDTOCreate);
+    @PostMapping("/{user_id}/categories")
+    public ResponseEntity<CategoryDTOCreate> createCategory(@PathVariable int user_id, @RequestBody CategoryDTOCreate categoryDTOCreate) {
+        CategoryDTOCreate createdCategory = categoryServiceImp.createCategory(user_id, categoryDTOCreate);
 
-        URI location = URI.create("/category/" + createdCategory.getCategory_id());
+        URI location = URI.create("/category/" + createdCategory.getId());
         return ResponseEntity.created(location).body(createdCategory);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<CategoryDTO> getCategory(@PathVariable int id) {
-        CategoryDTO categoryDTO = categoryServiceImp.getCategoryFromId(id);
+    @GetMapping("/{category_id}")
+    public ResponseEntity<CategoryDTO> getCategory(@PathVariable int category_id) {
+        CategoryDTO categoryDTO = categoryServiceImp.getCategoryFromId(category_id);
         return ResponseEntity.ok(categoryDTO);
     }
 
-    @GetMapping("/categories/{user_id}")
+    @GetMapping("/users/{user_id}/categories")
     public ResponseEntity<List<CategoryDTO>> getCategories(@PathVariable int user_id) {
         List<CategoryDTO> categories = categoryServiceImp.getAllCategoriesFromUser(user_id);
         return ResponseEntity.ok(categories);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<CategoryDTO> updateCategory(@PathVariable int id, @RequestBody CategoryDTO categoryDTO) {
-        categoryServiceImp.updateCategory(id, categoryDTO);
+    @PutMapping("/{category_id}")
+    public ResponseEntity<CategoryDTO> updateCategory(@PathVariable int category_id, @RequestBody CategoryDTO categoryDTO) {
+        categoryServiceImp.updateCategory(category_id, categoryDTO);
         return ResponseEntity.ok(categoryDTO);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCategory(@PathVariable int id) {
-        categoryServiceImp.deleteCategory(id);
+    @DeleteMapping("/users/{user_id}/categories/{category_id}")
+    public ResponseEntity<Void> deleteCategory(@PathVariable int user_id, @PathVariable int category_id) {
+        categoryServiceImp.deleteCategory(category_id, user_id);
         return ResponseEntity.noContent().build();
     }
 }

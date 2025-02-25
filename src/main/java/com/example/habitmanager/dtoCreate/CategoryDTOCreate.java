@@ -6,7 +6,12 @@ import lombok.NonNull;
 import lombok.Setter;
 
 @Getter
-@Setter
 public class CategoryDTOCreate extends CategoryDTO {
-    private int category_id;
+    private int id;
+
+    public void setUser_id(int user_id) {
+        if(user_id > 0){
+            getUser().setId(user_id);
+        }
+    }
 }

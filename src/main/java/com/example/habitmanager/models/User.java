@@ -2,20 +2,22 @@ package com.example.habitmanager.models;
 
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.util.List;
 
-@Entity
+
 @Getter
 @Setter
+@Entity
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int user_id;
+    private int id;
     @Column(nullable = false)
-    private String first_name;
+    private String firstname;
     @Column(nullable = false)
-    private String last_name;
+    private String lastname;
+    @Column(nullable = false)
+    private int age;
     @Column(nullable = false)
     private String email;
     @Column(nullable = false)
@@ -23,25 +25,28 @@ public class User {
     @Column(nullable = false)
     private RoleEnum role;
 
+
     public enum RoleEnum {
         ADMIN, USER
     }
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Habit> habits;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Category> categories;
 
 
-    public void setFirst_name(String first_name) {
-        if(!first_name.isEmpty()){
-            this.first_name = first_name;
+
+
+    public void setFirstname(String firstname) {
+        if(!firstname.isEmpty()){
+            this.firstname = firstname;
         }
     }
 
-    public void setLast_name(String last_name) {
-        if(!last_name.isEmpty()){
-            this.last_name = last_name;
+    public void setLastname(String lastname) {
+        if(!lastname.isEmpty()){
+            this.lastname = lastname;
         }
     }
 

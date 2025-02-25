@@ -23,22 +23,23 @@ public class StatsServiceImp implements StatsService {
     }
 
     @Override
-    public StatsDTOCreate createStatsDTO(StatsDTOCreate statsDTOCreate) {
+    public StatsDTOCreate createStatsDTO(int habit_id, StatsDTOCreate statsDTOCreate) {
+        statsDTOCreate.setHabitId(habit_id);
         Stats stats = modelMapper.toStats(statsDTOCreate);
         Stats savedStats = statsRepository.save(stats);
         return modelMapper.toStatsDTOCreate(savedStats);
     }
 
     @Override
-    public StatsDTO getStatsFromId(int stats_id) {
+    public StatsDTO getStatsById(int stats_id) {
         Stats stats = statsRepository.findById(stats_id)
                 .orElseThrow(() -> new IllegalArgumentException("Stats not found with id: " + stats_id));
         return modelMapper.toStatsDTO(stats);
     }
 
     @Override
-    public StatsDTO getStatsFromHabitId(int habit_id) {
-        Stats stats = statsRepository.findByHabitId(habit_id)
+    public StatsDTO getStatsByHabitId(int habit_id) {
+        Stats stats = statsRepository.findByHabit_Id(habit_id)
                 .orElseThrow(() -> new IllegalArgumentException("Stats not found with id: " + habit_id));
         return modelMapper.toStatsDTO(stats);
     }

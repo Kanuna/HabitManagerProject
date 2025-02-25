@@ -9,7 +9,9 @@ import lombok.*;
 public class Stats {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int stats_id;
+    private int id;
+    @OneToOne(mappedBy = "stats")
+    private Habit habit;
     @Column(nullable = true)
     private int finishedTotalTimesWeek;
     @Column(nullable = true)

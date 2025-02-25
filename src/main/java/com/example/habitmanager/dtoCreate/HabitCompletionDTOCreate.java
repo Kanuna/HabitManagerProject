@@ -1,10 +1,10 @@
 package com.example.habitmanager.dtoCreate;
 
-import com.example.habitmanager.dto.StatsDTO;
+import com.example.habitmanager.dto.HabitCompletionDTO;
 import lombok.Getter;
 
 @Getter
-public class StatsDTOCreate extends StatsDTO {
+public class HabitCompletionDTOCreate extends HabitCompletionDTO {
     private int id;
 
     public void setHabitId(int habit_id) {

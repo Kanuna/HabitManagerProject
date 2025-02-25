@@ -18,10 +18,10 @@ public class UserController {
         this.userServiceImp = userServiceImp;
     }
 
-    @PostMapping("/createUser")
+    @PostMapping("/user")
     public ResponseEntity<UserDTOCreate> createUser(@RequestBody UserDTOCreate userDTOCreate){
         UserDTOCreate createdUser = userServiceImp.createUser(userDTOCreate);
-        URI location = URI.create("/user/" + createdUser.getUser_id());
+        URI location = URI.create("/user/" + createdUser.getId());
         return ResponseEntity.created(location).body(createdUser);
     }
 

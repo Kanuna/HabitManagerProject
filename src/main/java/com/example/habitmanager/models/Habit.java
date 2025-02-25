@@ -1,6 +1,9 @@
 package com.example.habitmanager.models;
+
+import com.example.habitmanager.mapper.PriorityConverter;
 import jakarta.persistence.*;
 import lombok.*;
+import org.mapstruct.EnumMapping;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -11,28 +14,32 @@ import java.util.List;
 public class Habit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int habit_id;
+    private int id;
     @Column(nullable = false)
     private String title;
     @Column(nullable = true)
     private String description;
 
-    @Column(nullable = false)
-    private State state;
-
     @Column(nullable = true)
     private int amountAWeek;
+
     @Enumerated(EnumType.STRING)
     private HabitType habitType;
+
+    @Convert(converter = PriorityConverter.class)
+    private Priority priority;
+
     @ElementCollection
     @Enumerated(EnumType.STRING)
     private List<daysEnum> specificDays;
 
     @ElementCollection
     private List<LocalDate> specificDates;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "stats_id", nullable = false)
     private Stats stats;
+
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = true)
     private Category category;
@@ -41,9 +48,33 @@ public class Habit {
     @JoinColumn(name = "user_id")
     private User user;
 
-    public enum State {
-        Finished,
-        Not_Finished
+    @OneToMany(mappedBy = "habit", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<HabitCompletion> habitCompletions;
+
+
+    public enum Priority {
+        LOW(1),
+        MEDIUM(2),
+        HIGH(3);
+
+        private final int value;
+
+        Priority(int value) {
+            this.value = value;
+        }
+
+        public int getValue() {
+            return value;
+        }
+
+        public static Priority fromValue(int value) {
+            for (Priority priority : Priority.values()) {
+                if (priority.value == value) {
+                    return priority;
+                }
+            }
+            throw new IllegalArgumentException("Invalid priority value: " + value);
+        }
     }
 
     public enum HabitType {
