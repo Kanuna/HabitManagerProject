@@ -24,7 +24,7 @@ public class HabitCompletionController {
     public ResponseEntity<HabitCompletionDTOCreate> createHabit(@PathVariable int habit_id, @RequestBody HabitCompletionDTOCreate habitCompletionDTOCreate) {
         HabitCompletionDTOCreate createdHabitCompletion = habitCompletionServiceImp.createHabitCompletion(habit_id, habitCompletionDTOCreate);
 
-        URI location = URI.create("/completion/" + createdHabitCompletion.getHabitCompletion_id());
+        URI location = URI.create("/completion/" + createdHabitCompletion.getId());
         return ResponseEntity.created(location).body(createdHabitCompletion);
     }
 

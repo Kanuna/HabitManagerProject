@@ -13,7 +13,6 @@ public interface HabitService {
     HabitDTO updateHabit(int habit_id, HabitDTO habitDTO);
     void deleteHabit(int habit_id);
     List<HabitDTO> getAllHabitsFromUser(int user_id);
-    List<HabitDTO> getAllHabitsFromUserAndDate(int user_id, LocalDate date);
     List<HabitDTO> getAllHabitsFromUserAndCategory(int user_id, int category_id);
     List<HabitDTO> getAllHabitsFromUserAndPriority(int user_id, Habit.Priority priority);
 }

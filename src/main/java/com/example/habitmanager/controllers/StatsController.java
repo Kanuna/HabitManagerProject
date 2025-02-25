@@ -23,7 +23,7 @@ public class StatsController {
     public ResponseEntity<StatsDTOCreate> createStats(@PathVariable int habit_id, @RequestBody StatsDTOCreate statsDTOCreate) {
         StatsDTOCreate createdStats = statsServiceImp.createStatsDTO(habit_id, statsDTOCreate);
 
-        URI location = URI.create("/stats/" + createdStats.getStats_id());
+        URI location = URI.create("/stats/" + createdStats.getId());
         return ResponseEntity.created(location).body(createdStats);
     }
 

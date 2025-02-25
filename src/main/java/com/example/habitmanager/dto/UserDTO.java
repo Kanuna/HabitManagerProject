@@ -1,12 +1,8 @@
 package com.example.habitmanager.dto;
-
 import com.example.habitmanager.models.User;
 import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.aspectj.bridge.IMessage;
-
-import java.util.List;
 
 @Getter
 @Setter
@@ -19,7 +15,7 @@ public class UserDTO {
     private int age;
     @Email(message = "Email is required")
     private String email;
-    @Size(min = 8, message = "Password must be at least 15 characters")
+    @Size(min = 8, message = "Password must be at least 8 characters")
     private String password;
     @NotNull(message = "Role is required")
     private User.RoleEnum role;

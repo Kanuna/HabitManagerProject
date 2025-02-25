@@ -9,5 +9,5 @@ import java.util.Optional;
 
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Integer> {
-    Optional<List<Category>> findByUser_User_id(int user_id);
+    Optional<List<Category>> findByUser_Id(int user_id);
 }

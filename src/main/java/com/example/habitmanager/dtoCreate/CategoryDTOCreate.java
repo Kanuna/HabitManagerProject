@@ -7,11 +7,11 @@ import lombok.Setter;
 
 @Getter
 public class CategoryDTOCreate extends CategoryDTO {
-    private int category_id;
+    private int id;
 
     public void setUser_id(int user_id) {
         if(user_id > 0){
-            setUser_id(user_id);
+            getUser().setId(user_id);
         }
     }
 }

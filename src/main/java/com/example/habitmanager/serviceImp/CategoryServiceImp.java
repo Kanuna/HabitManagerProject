@@ -56,9 +56,9 @@ public class CategoryServiceImp implements CategoryService {
     }
 
     @Override
-    public List<CategoryDTO> getAllCategoriesFromUser(int user_id) {
-        List<Category> categories = categoryRepository.findByUser_User_id(user_id)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + user_id));
+    public List<CategoryDTO> getAllCategoriesFromUser(int userId) {
+        List<Category> categories = categoryRepository.findByUser_Id(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
 
         return categories.stream()
                 .map(modelMapper::toCategoryDTO)
@@ -70,7 +70,7 @@ public class CategoryServiceImp implements CategoryService {
         Category category = categoryRepository.findById(category_id)
                 .orElseThrow(() -> new RuntimeException("Category not found with id: " + category_id));
 
-        Optional<List<Habit>> optionalHabits = habitRepository.findByUser_User_idAndCategory_Category_id(user_id, category_id);
+        Optional<List<Habit>> optionalHabits = habitRepository.findByUser_idAndCategory_id(user_id, category_id);
         if(optionalHabits.isPresent()) {
             List<Habit> habits = optionalHabits.get();
             for (Habit habit : habits) {

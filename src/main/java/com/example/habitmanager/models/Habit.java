@@ -14,7 +14,7 @@ import java.util.List;
 public class Habit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int habit_id;
+    private int id;
     @Column(nullable = false)
     private String title;
     @Column(nullable = true)

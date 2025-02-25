@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 public class StatsDTOCreate extends StatsDTO {
-    private int stats_id;
+    private int id;
 
     public void setHabitId(int habit_id) {
         if(habit_id > 0){

@@ -13,7 +13,7 @@ import java.time.LocalDate;
 public class HabitCompletion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int habitCompletion_id;
+    private int id;
     @Column(nullable = false)
     private LocalDate date;
     @Column(nullable = false)

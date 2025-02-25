@@ -11,7 +11,7 @@ import java.util.List;
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int category_id;
+    private int id;
     @Column(nullable = false)
     private String name;
     @Column(nullable = false)
@@ -20,7 +20,7 @@ public class Category {
     @OneToMany(mappedBy = "category")
     private List<Habit> habits;
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
 
@@ -34,5 +34,12 @@ public class Category {
         if(!colorCode.isEmpty()){
             this.colorCode = colorCode;
         }
+    }
+
+    public User getUser() {
+        return user;
+    }
+    public void setUser(User user) {
+        this.user = user;
     }
 }

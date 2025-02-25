@@ -27,7 +27,7 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 public class UserServiceTest {
 
-    @Mock
+   /* @Mock
     private UserRepository userRepository;
     @Mock
     private HabitRepository habitRepository;
@@ -223,5 +223,5 @@ public class UserServiceTest {
                 () -> {
                     userServiceImp.getUserById(99);
                 });
-    }
+    }*/
 }

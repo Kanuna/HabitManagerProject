@@ -14,7 +14,6 @@ import java.util.List;
 @Getter
 @Setter
 public class CategoryDTO {
-    private int category_id;
     @NotBlank(message = "Name is required")
     public String name;
     @NotNull(message = "Color code is required")

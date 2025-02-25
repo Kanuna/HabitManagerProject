@@ -25,7 +25,7 @@ public class HabitController {
     public ResponseEntity<HabitDTOCreate> createHabit(@PathVariable int user_id, @RequestBody HabitDTOCreate habitDTOCreate) {
         HabitDTOCreate createdHabit = habitServiceImp.createHabit(user_id, habitDTOCreate);
 
-        URI location = URI.create("/habit/" + createdHabit.getHabit_id());
+        URI location = URI.create("/habit/" + createdHabit.getId());
         return ResponseEntity.created(location).body(createdHabit);
     }
 
@@ -44,21 +44,11 @@ public class HabitController {
     }
 
 
-    @GetMapping("/users/{user_id}/habits/{date}")
-    public ResponseEntity<List<HabitDTO>> getHabitsByDate(
-            @PathVariable int user_id,
-            @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
-
-        List<HabitDTO> habits = habitServiceImp.getAllHabitsFromUserAndDate(user_id, date);
-        return ResponseEntity.ok(habits);
-    }
-
-
-/*    @GetMapping("/users/{user_id}/habits/{category_id}")
+    @GetMapping("/users/{user_id}/habits/{category_id}")
     public ResponseEntity<List<HabitDTO>> getHabitsByCategoryId(@PathVariable int user_id, @PathVariable int category_id) {
         List<HabitDTO> habits = habitServiceImp.getAllHabitsFromUserAndCategory(user_id, category_id);
         return ResponseEntity.ok(habits);
-    }*/
+    }
 
 
     @GetMapping("/users/{user_id}/habits/{priority}")

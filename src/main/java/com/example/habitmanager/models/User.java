@@ -11,7 +11,7 @@ import java.util.List;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int user_id;
+    private int id;
     @Column(nullable = false)
     private String firstname;
     @Column(nullable = false)
@@ -25,6 +25,7 @@ public class User {
     @Column(nullable = false)
     private RoleEnum role;
 
+
     public enum RoleEnum {
         ADMIN, USER
     }
@@ -33,6 +34,8 @@ public class User {
     private List<Habit> habits;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Category> categories;
+
+
 
 
     public void setFirstname(String firstname) {

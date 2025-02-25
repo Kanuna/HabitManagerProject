@@ -53,7 +53,7 @@ public class HabitCompletionServiceImp implements HabitCompletionService {
 
     @Override
     public List<HabitCompletionDTO> getCompletionsByHabitId(int habit_id) {
-        List<HabitCompletion> habitCompletions = habitCompletionRepository.findByHabit_Habit_id(habit_id)
+        List<HabitCompletion> habitCompletions = habitCompletionRepository.findByHabit_id(habit_id)
                 .orElseThrow(() -> new ResourceNotFoundException("Habit not found with id" + habit_id));
 
         return habitCompletions.stream()
@@ -63,7 +63,7 @@ public class HabitCompletionServiceImp implements HabitCompletionService {
 
     @Override
     public HabitCompletionDTO findCompletionByDateAndHabitId(LocalDate date, int habit_id) {
-        HabitCompletion habitCompletion = habitCompletionRepository.findByDateAndHabit_Habit_id(date, habit_id)
+        HabitCompletion habitCompletion = habitCompletionRepository.findByDateAndHabit_id(date, habit_id)
                 .orElseThrow(() -> new ResourceNotFoundException("Habit not found with id: " + habit_id));
 
         return modelMapper.toHabitCompletionDTO(habitCompletion);
