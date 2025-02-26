@@ -41,7 +41,7 @@ public class StatsController {
 
     @PutMapping("/{id}")
     public ResponseEntity<StatsDTO> updateStats(@PathVariable int id, @RequestBody StatsDTO statsDTO) {
-        statsServiceImp.updateStatsDTO(id, statsDTO);
+        statsServiceImp.updateStats(id, statsDTO);
         return ResponseEntity.ok(statsDTO);
     }
 }

@@ -45,7 +45,7 @@ public class StatsServiceImp implements StatsService {
     }
 
     @Override
-    public StatsDTO updateStatsDTO(int stats_id, StatsDTO statsDTO) {
+    public StatsDTO updateStats(int stats_id, StatsDTO statsDTO) {
         Stats stats = statsRepository.findById(stats_id)
                 .orElseThrow(() -> new IllegalArgumentException("Stats not found with id: " + stats_id));
 

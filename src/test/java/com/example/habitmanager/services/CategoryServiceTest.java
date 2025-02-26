@@ -11,7 +11,6 @@ import com.example.habitmanager.repositories.CategoryRepository;
 import com.example.habitmanager.repositories.UserRepository;
 import com.example.habitmanager.serviceImp.CategoryServiceImp;
 import com.example.habitmanager.serviceImp.UserServiceImp;
-import org.hibernate.boot.jaxb.mapping.AssociationAttribute;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,7 +22,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -97,13 +95,15 @@ public class CategoryServiceTest {
         Assertions.assertEquals(testCategoryDTOCreate.getHabits(), createdCategory.getHabits());
         Assertions.assertEquals(testCategoryDTOCreate.getName(), createdCategory.getName());
 
+        verify(modelMapper, times(1)).toCategory(testCategoryDTOCreate);
         verify(categoryRepository, times(1)).save(testCategory);
+        verify(modelMapper, times(1)).toCategoryDTOCreate(testCategory);
     }
 
     @Test
     void getCategory_WithValidId(){
         Category expectedCategory = new Category();
-        expectedCategory.setId(testUser.getId());
+        expectedCategory.setId(1);
         expectedCategory.setUser(testUser);
         expectedCategory.setHabits(habits);
         expectedCategory.setName("test category");
