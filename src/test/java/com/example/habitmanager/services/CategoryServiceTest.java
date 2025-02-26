@@ -11,6 +11,7 @@ import com.example.habitmanager.repositories.CategoryRepository;
 import com.example.habitmanager.repositories.UserRepository;
 import com.example.habitmanager.serviceImp.CategoryServiceImp;
 import com.example.habitmanager.serviceImp.UserServiceImp;
+import org.hibernate.boot.jaxb.mapping.AssociationAttribute;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -123,7 +124,7 @@ public class CategoryServiceTest {
         verify( modelMapper, times(1)).toCategoryDTO(testCategory);
     }
     @Test
-    void getCategory_WithInvalidId(){
+    void getCategory_WithInvalidId_shouldThrowException(){
         when(categoryRepository.findById(99)).thenThrow(new ResourceNotFoundException("Category not found with id: 99"));
 
         Assertions.assertThrows(ResourceNotFoundException.class,
@@ -170,7 +171,7 @@ public class CategoryServiceTest {
         verify( modelMapper, times(1)).toCategoryDTO(updatedCategory);
     }
     @Test
-    void updateCategory_WithInvalidId(){
+    void updateCategory_WithInvalidId_shouldThrowException(){
         when(categoryRepository.findById(99)).thenThrow(new ResourceNotFoundException("Category with id 99 not found"));
 
         Assertions.assertThrows(ResourceNotFoundException.class,
@@ -180,8 +181,66 @@ public class CategoryServiceTest {
     }
 
     @Test
+    void getCategories_WithValidUserId(){
+        int user_id = testUser.getId();
+        Category category1 = new Category();
+        category1.setId(1);
+        category1.setName("category 1");
+        category1.setUser(testUser);
+        category1.setColorCode("#123456");
+
+        Category category2 = new Category();
+        category2.setId(2);
+        category2.setName("category 2");
+        category2.setUser(testUser);
+        category2.setColorCode("#123456");
+
+        List<Category> categories = Arrays.asList(category1, category2);
+
+        CategoryDTO categoryDTO1 = new CategoryDTO();
+        categoryDTO1.setName("category 1");
+        categoryDTO1.setColorCode("#123456");
+        categoryDTO1.setUser(testUser);
+
+        CategoryDTO categoryDTO2 = new CategoryDTO();
+        categoryDTO2.setName("category 2");
+        categoryDTO2.setColorCode("#123456");
+        category2.setUser(testUser);
+
+        when(categoryRepository.findByUser_id(user_id)).thenReturn(Optional.of(categories));
+        when(modelMapper.toCategoryDTO(category1)).thenReturn(categoryDTO1);
+        when(modelMapper.toCategoryDTO(category2)).thenReturn(categoryDTO2);
+
+        List<CategoryDTO> result = categoryServiceImp.getAllCategoriesFromUser(user_id);
+
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(categories.size(), result.size());
+        Assertions.assertEquals(categoryDTO1.getName(), result.get(0).getName());
+        Assertions.assertEquals(categoryDTO1.getColorCode(), result.get(0).getColorCode());
+        Assertions.assertEquals(categoryDTO1.getUser(), result.get(0).getUser());
+
+        Assertions.assertEquals(categoryDTO2.getName(), result.get(1).getName());
+        Assertions.assertEquals(categoryDTO2.getColorCode(), result.get(1).getColorCode());
+        Assertions.assertEquals(categoryDTO2.getUser(), result.get(1).getUser());
+
+        verify( categoryRepository, times(1)).findByUser_id(user_id);
+        verify( modelMapper, times(1)).toCategoryDTO(category1);
+        verify( modelMapper, times(1)).toCategoryDTO(category2);
+
+    }
+
+    @Test
     void deleteCategory_WithValidId(){
         int category_id = 1;
         Category category = new Category();
+    }
+    @Test
+    void deleteCategory_WithInvalidId_shouldThrowException(){
+        when(categoryRepository.findById(99)).thenThrow(new ResourceNotFoundException("Category with id 99 not found"));
+
+        Assertions.assertThrows(ResourceNotFoundException.class,
+                () -> categoryServiceImp.getCategoryFromId(99));
+
+        verify(categoryRepository, times(1)).findById(99);
     }
 }
