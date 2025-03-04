@@ -3,7 +3,7 @@ package com.example.habitmanager.serviceImp;
 import com.example.habitmanager.ResourceNotFoundException.ResourceNotFoundException;
 import com.example.habitmanager.dto.UserDTO;
 import com.example.habitmanager.dtoCreate.UserDTOCreate;
-import com.example.habitmanager.mapper.ModelMapperOld;
+import com.example.habitmanager.mapper.ModelMapper;
 import com.example.habitmanager.models.User;
 import com.example.habitmanager.repositories.UserRepository;
 import com.example.habitmanager.services.UserService;
@@ -14,24 +14,16 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImp implements UserService {
     private final UserRepository userRepository;
-    private final ModelMapperOld modelMapperOld;
+    private final ModelMapper modelMapper;
 
-    public UserServiceImp(UserRepository userRepository, ModelMapperOld modelMapperOld) {
+    public UserServiceImp(UserRepository userRepository, ModelMapper modelMapper) {
         this.userRepository = userRepository;
-        this.modelMapperOld = modelMapperOld;
+        this.modelMapper = modelMapper;
     }
 
     @Override
     public UserDTOCreate createUser(UserDTOCreate userDTOCreate) {
-        User user = new User(); //modelMapper.toUser(userDTOCreate);
-        user.setFirstname(userDTOCreate.getFirstname());
-        user.setLastname(userDTOCreate.getLastname());
-        user.setEmail(userDTOCreate.getEmail());
-        user.setAge(userDTOCreate.getAge());
-        user.setPassword(userDTOCreate.getPassword());
-        user.setRole(userDTOCreate.getRole());
-        user.setId(userDTOCreate.getId());
-
+        User user = modelMapper.toUser(userDTOCreate);
         String userPassword = user.getPassword();
 
         Argon2 argon2 = Argon2Factory.create();
@@ -40,14 +32,14 @@ public class UserServiceImp implements UserService {
         user.setPassword(hashedPassword);
 
         User savedUser = userRepository.save(user);
-        return modelMapperOld.toUserDTOCreate(savedUser);
+        return modelMapper.toUserDTOCreate(savedUser);
     }
 
     @Override
     public UserDTO getUserById(int user_id) {
         User user = userRepository.findById(user_id)
                 .orElseThrow(() -> new ResourceNotFoundException("Address not found with id: " + user_id));
-        return modelMapperOld.toUserDTO(user);
+        return modelMapper.toUserDTO(user);
     }
 
     @Override
@@ -61,7 +53,7 @@ public class UserServiceImp implements UserService {
         user.setPassword(userDTO.getPassword());
 
         User updatedUser = userRepository.save(user);
-        return modelMapperOld.toUserDTO(updatedUser);
+        return modelMapper.toUserDTO(updatedUser);
     }
 
     @Override
@@ -79,11 +71,6 @@ public class UserServiceImp implements UserService {
         Argon2 argon2 = Argon2Factory.create();
         String userHashedPassword = user.getPassword();
 
-        boolean isMatch = argon2.verify(userHashedPassword, password.toCharArray());
-
-        return isMatch;
-/*        return userRepository.findByEmail(email)
-                .map(user -> user.getPassword().equals(password)) // Compare passwords
-                .orElse(false);*/
+        return argon2.verify(userHashedPassword, password.toCharArray());
     }
 }
