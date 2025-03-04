@@ -3,12 +3,12 @@ package com.example.habitmanager.mapper;
 import com.example.habitmanager.dto.*;
 import com.example.habitmanager.dtoCreate.*;
 import com.example.habitmanager.models.*;
+import org.mapstruct.Mapper;
 
-import javax.annotation.processing.Completions;
+@Mapper(componentModel = "spring")
+public interface ModelMapper {
 
-public class ModelMapper {
-
-    public  UserDTO toUserDTO(User user){
+    default UserDTO toUserDTO(User user){
         UserDTO userDTO = new UserDTO();
         userDTO.setFirstname(user.getFirstname());
         userDTO.setLastname(user.getLastname());
@@ -18,7 +18,7 @@ public class ModelMapper {
         userDTO.setRole(user.getRole());
         return userDTO;
     }
-    public  User toUser(UserDTOCreate userDTOCreate){
+    default User toUser(UserDTOCreate userDTOCreate){
         User user = new User();
         user.setFirstname(userDTOCreate.getFirstname());
         user.setLastname(userDTOCreate.getLastname());
@@ -28,7 +28,7 @@ public class ModelMapper {
         user.setRole(userDTOCreate.getRole());
         return user;
     }
-    public  UserDTOCreate toUserDTOCreate(User user){
+    default UserDTOCreate toUserDTOCreate(User user){
         UserDTOCreate userDTOCreate = new UserDTOCreate();
         userDTOCreate.setId(user.getId());
         userDTOCreate.setFirstname(user.getFirstname());
@@ -40,7 +40,7 @@ public class ModelMapper {
         return userDTOCreate;
     }
 
-    public  HabitDTO toHabitDTO(Habit habit){
+    default HabitDTO toHabitDTO(Habit habit){
         HabitDTO habitDTO = new HabitDTO();
         habitDTO.setTitle(habit.getTitle());
         habitDTO.setDescription(habit.getDescription());
@@ -52,7 +52,7 @@ public class ModelMapper {
         habitDTO.setUser(habit.getUser());
         return habitDTO;
     }
-    public  Habit toHabit(HabitDTO habitDTO){
+    default Habit toHabit(HabitDTO habitDTO){
         Habit habit = new Habit();
         habit.setTitle(habitDTO.getTitle());
         habit.setDescription(habitDTO.getDescription());
@@ -64,7 +64,7 @@ public class ModelMapper {
         habit.setUser(habitDTO.getUser());
         return habit;
     }
-    public  HabitDTOCreate toHabitDTOCreate(Habit habit){
+    default HabitDTOCreate toHabitDTOCreate(Habit habit){
         HabitDTOCreate habitDTOCreate = new HabitDTOCreate();
         habitDTOCreate.setId(habit.getId());
         habitDTOCreate.setTitle(habit.getTitle());
@@ -78,21 +78,21 @@ public class ModelMapper {
         return habitDTOCreate;
     }
 
-    public  HabitCompletionDTO toHabitCompletionDTO(HabitCompletion habitCompletion){
+    default HabitCompletionDTO toHabitCompletionDTO(HabitCompletion habitCompletion){
         HabitCompletionDTO habitCompletionDTO = new HabitCompletionDTO();
         habitCompletionDTO.setDate(habitCompletion.getDate());
         habitCompletionDTO.setState(habitCompletion.getState());
         habitCompletionDTO.setHabit(habitCompletion.getHabit());
         return habitCompletionDTO;
     }
-    public  HabitCompletion toHabitCompletion(HabitCompletionDTO habitCompletionDTO){
+    default HabitCompletion toHabitCompletion(HabitCompletionDTO habitCompletionDTO){
         HabitCompletion habitCompletion = new HabitCompletion();
         habitCompletion.setDate(habitCompletionDTO.getDate());
         habitCompletion.setState(habitCompletionDTO.getState());
         habitCompletion.setHabit(habitCompletionDTO.getHabit());
         return habitCompletion;
     }
-    public  HabitCompletionDTOCreate toHabitCompletionDTOCreate(HabitCompletion habitCompletion){
+    default HabitCompletionDTOCreate toHabitCompletionDTOCreate(HabitCompletion habitCompletion){
         HabitCompletionDTOCreate habitCompletionDTOCreate = new HabitCompletionDTOCreate();
         habitCompletionDTOCreate.setId(habitCompletion.getId());
         habitCompletionDTOCreate.setHabit(habitCompletion.getHabit());
@@ -101,7 +101,7 @@ public class ModelMapper {
         return habitCompletionDTOCreate;
     }
 
-    public  StatsDTO toStatsDTO(Stats stats){
+    default StatsDTO toStatsDTO(Stats stats){
         StatsDTO statsDTO = new StatsDTO();
         statsDTO.setHabit(stats.getHabit());
         statsDTO.setFinishedTotalTimesWeek(stats.getFinishedTotalTimesWeek());
@@ -112,7 +112,7 @@ public class ModelMapper {
         statsDTO.setNotFinishedTotalTimesYear(stats.getNotFinishedTotalTimesYear());
         return statsDTO;
     }
-    public  Stats toStats(StatsDTO statsDTO){
+    default Stats toStats(StatsDTO statsDTO){
         Stats stats = new Stats();
         stats.setHabit(statsDTO.getHabit());
         stats.setFinishedTotalTimesWeek(statsDTO.getFinishedTotalTimesWeek());
@@ -123,7 +123,7 @@ public class ModelMapper {
         stats.setNotFinishedTotalTimesYear(statsDTO.getNotFinishedTotalTimesYear());
         return stats;
     }
-    public  StatsDTOCreate toStatsDTOCreate(Stats stats){
+    default StatsDTOCreate toStatsDTOCreate(Stats stats){
         StatsDTOCreate statsDTOCreate = new StatsDTOCreate();
         statsDTOCreate.setHabit(stats.getHabit());
         statsDTOCreate.setFinishedTotalTimesWeek(stats.getFinishedTotalTimesWeek());
@@ -135,7 +135,7 @@ public class ModelMapper {
         return statsDTOCreate;
     }
 
-    public  CategoryDTO toCategoryDTO(Category category){
+    default CategoryDTO toCategoryDTO(Category category){
         CategoryDTO categoryDTO = new CategoryDTO();
         categoryDTO.setName(category.getName());
         categoryDTO.setColorCode(category.getColorCode());
@@ -143,7 +143,7 @@ public class ModelMapper {
         categoryDTO.setUser(category.getUser());
         return categoryDTO;
     }
-    public  Category toCategory(CategoryDTO categoryDTO){
+    default Category toCategory(CategoryDTO categoryDTO){
         Category category = new Category();
         category.setName(categoryDTO.getName());
         category.setColorCode(categoryDTO.getColorCode());
@@ -151,7 +151,7 @@ public class ModelMapper {
         category.setUser(categoryDTO.getUser());
         return category;
     }
-    public  CategoryDTOCreate toCategoryDTOCreate(Category category){
+    default CategoryDTOCreate toCategoryDTOCreate(Category category){
         CategoryDTOCreate categoryDTOCreate = new CategoryDTOCreate();
         categoryDTOCreate.setId(category.getId());
         categoryDTOCreate.setName(category.getName());
