@@ -90,18 +90,18 @@ public class HabitServiceTest {
         testHabitDTO.setDescription("Test habit description");
         testHabitDTO.setAmountAWeek(0);
         testHabitDTO.setHabitType(Habit.HabitType.WEEKLY);
-        testHabitDTO.setCategory(testCategory);
-        testHabitDTO.setStats(testStats);
-        testHabitDTO.setUser(testUser);
+        testHabitDTO.setCategoryId(testCategory.getId());
+        testHabitDTO.setStatsId(testStats.getId());
+        testHabitDTO.setUserId(testUser.getId());
 
         testHabitDTOCreate = new HabitDTOCreate();
         testHabitDTOCreate.setTitle("Test habit");
         testHabitDTOCreate.setDescription("Test habit description");
         testHabitDTOCreate.setAmountAWeek(0);
         testHabitDTOCreate.setHabitType(Habit.HabitType.WEEKLY);
-        testHabitDTOCreate.setCategory(testCategory);
-        testHabitDTOCreate.setStats(testStats);
-        testHabitDTOCreate.setUser(testUser);
+        testHabitDTOCreate.setCategoryId(testCategory.getId());
+        testHabitDTOCreate.setStatsId(testStats.getId());
+        testHabitDTOCreate.setUserId(testUser.getId());
     }
 
     @Test
@@ -196,9 +196,9 @@ public class HabitServiceTest {
         HabitDTO expectedDTO = new HabitDTO();
         expectedDTO.setTitle("Test habit");
         expectedDTO.setDescription("Test habit description");
-        expectedDTO.setStats(expectedStats); //Could use testStats instead
-        expectedDTO.setUser(expectedUser); //Could use testUser instead
-        expectedDTO.setCategory(expectedCategory); //Could use testCategory instead
+        expectedDTO.setUserId(expectedStats.getId());
+        expectedDTO.setUserId(expectedUser.getId());
+        expectedDTO.setCategoryId(expectedCategory.getId());
         expectedDTO.setAmountAWeek(0);
         expectedDTO.setHabitType(Habit.HabitType.WEEKLY);
 
@@ -213,9 +213,9 @@ public class HabitServiceTest {
         Assertions.assertEquals(expectedDTO.getTitle(), result.getTitle());
         Assertions.assertEquals(expectedDTO.getDescription(), result.getDescription());
         Assertions.assertEquals(expectedDTO.getAmountAWeek(), result.getAmountAWeek());
-        Assertions.assertEquals(expectedDTO.getStats(), result.getStats());
-        Assertions.assertEquals(expectedDTO.getUser(), result.getUser());
-        Assertions.assertEquals(expectedDTO.getCategory(), result.getCategory());
+        Assertions.assertEquals(expectedDTO.getStatsId(), result.getStatsId());
+        Assertions.assertEquals(expectedDTO.getUserId(), result.getUserId());
+        Assertions.assertEquals(expectedDTO.getCategoryId(), result.getCategoryId());
         Assertions.assertEquals(expectedDTO.getSpecificDays(), result.getSpecificDays());
         Assertions.assertEquals(expectedDTO.getSpecificDates(), result.getSpecificDates());
 
@@ -259,15 +259,16 @@ public class HabitServiceTest {
         newUser.setRole(User.RoleEnum.USER);
         newUser.setCategories(Collections.singletonList(newCategory));
 
-        HabitDTO habitDTO = new HabitDTO();
-        habitDTO.setTitle("New test habit");
-        habitDTO.setDescription("New test habit description");
-        habitDTO.setHabitType(Habit.HabitType.SPECIFIC_DAYS);
-        habitDTO.setAmountAWeek(3);
-        habitDTO.setSpecificDays(Arrays.asList(Habit.daysEnum.MONDAY, Habit.daysEnum.TUESDAY, Habit.daysEnum.WEDNESDAY));
-        habitDTO.setStats(newStats);
-        habitDTO.setUser(newUser);
-        habitDTO.setCategory(newCategory);
+        HabitDTOCreate habitDTOCreate = new HabitDTOCreate();
+        habitDTOCreate.setId(1);
+        habitDTOCreate.setTitle("New test habit");
+        habitDTOCreate.setDescription("New test habit description");
+        habitDTOCreate.setHabitType(Habit.HabitType.SPECIFIC_DAYS);
+        habitDTOCreate.setAmountAWeek(3);
+        habitDTOCreate.setSpecificDays(Arrays.asList(Habit.daysEnum.MONDAY, Habit.daysEnum.TUESDAY, Habit.daysEnum.WEDNESDAY));
+        habitDTOCreate.setStatsId(newStats.getId());
+        habitDTOCreate.setUserId(newUser.getId());
+        habitDTOCreate.setCategoryId(newCategory.getId());
 
         Habit habit = new Habit();
         habit.setId(1);
@@ -279,36 +280,38 @@ public class HabitServiceTest {
         habit.setUser(testUser);
         habit.setCategory(testCategory);
 
+
         Habit updatedHabit = new Habit();
-        updatedHabit.setTitle(habitDTO.getTitle());
-        updatedHabit.setDescription(habitDTO.getDescription());
-        updatedHabit.setHabitType(habitDTO.getHabitType());
-        updatedHabit.setAmountAWeek(habitDTO.getAmountAWeek());
-        updatedHabit.setSpecificDays(habitDTO.getSpecificDays());
-        updatedHabit.setStats(habitDTO.getStats());
-        updatedHabit.setUser(habitDTO.getUser());
-        updatedHabit.setCategory(habitDTO.getCategory());
+        updatedHabit.setTitle(habitDTOCreate.getTitle());
+        updatedHabit.setDescription(habitDTOCreate.getDescription());
+        updatedHabit.setHabitType(habitDTOCreate.getHabitType());
+        updatedHabit.setAmountAWeek(habitDTOCreate.getAmountAWeek());
+        updatedHabit.setSpecificDays(habitDTOCreate.getSpecificDays());
+        updatedHabit.setStats(newStats);
+        updatedHabit.setUser(newUser);
+        updatedHabit.setCategory(newCategory);
 
         when(habitRepository.findById(1)).thenReturn(Optional.of(habit));
         when(habitRepository.save(habit)).thenReturn(updatedHabit);
-        when(modelMapper.toHabitDTO(updatedHabit)).thenReturn(habitDTO);
+        when(modelMapper.toHabitDTO(updatedHabit)).thenReturn(habitDTOCreate);
 
-        HabitDTO result = habitServiceImp.updateHabit(1, habitDTO);
+        HabitDTO result = habitServiceImp.updateHabit(1, habitDTOCreate);
 
         Assertions.assertNotNull(result);
-        Assertions.assertEquals(habitDTO.getTitle(), result.getTitle());
-        Assertions.assertEquals(habitDTO.getDescription(), result.getDescription());
-        Assertions.assertEquals(habitDTO.getHabitType(), result.getHabitType());
-        Assertions.assertEquals(habitDTO.getAmountAWeek(), result.getAmountAWeek());
-        Assertions.assertEquals(habitDTO.getSpecificDays(), result.getSpecificDays());
-        Assertions.assertEquals(habitDTO.getStats(), result.getStats());
-        Assertions.assertEquals(habitDTO.getUser(), result.getUser());
-        Assertions.assertEquals(habitDTO.getCategory(), result.getCategory());
+        Assertions.assertEquals(habitDTOCreate.getTitle(), result.getTitle());
+        Assertions.assertEquals(habitDTOCreate.getDescription(), result.getDescription());
+        Assertions.assertEquals(habitDTOCreate.getHabitType(), result.getHabitType());
+        Assertions.assertEquals(habitDTOCreate.getAmountAWeek(), result.getAmountAWeek());
+        Assertions.assertEquals(habitDTOCreate.getSpecificDays(), result.getSpecificDays());
+        Assertions.assertEquals(habitDTOCreate.getStatsId(), result.getStatsId());
+        Assertions.assertEquals(habitDTOCreate.getUserId(), result.getUserId());
+        Assertions.assertEquals(habitDTOCreate.getCategoryId(), result.getCategoryId());
 
         verify(habitRepository, times(1)).findById(1);
         verify(habitRepository, times(1)).save(habit);
         verify(modelMapper, times(1)).toHabitDTO(updatedHabit);
     }
+
     @Test
     void updateHabit_WithInvalidId_shouldThrowException() {
         when(habitRepository.findById(99)).thenThrow(new ResourceNotFoundException("Habit with id 99 not found"));
@@ -416,11 +419,11 @@ public class HabitServiceTest {
 
         HabitDTO habitDTO1 = new HabitDTO();
         habitDTO1.setTitle("Habit1");
-        habitDTO1.setCategory(testCategory);
+        habitDTO1.setCategoryId(testCategory.getId());
 
         HabitDTO habitDTO2 = new HabitDTO();
         habitDTO2.setTitle("Habit2");
-        habitDTO2.setCategory(testCategory);
+        habitDTO2.setCategoryId(testCategory.getId());
 
         when(habitRepository.findByUser_idAndCategory_id(testUser.getId(), testCategory.getId())).thenReturn(Optional.of(habits));
         when(modelMapper.toHabitDTO(habit1)).thenReturn(habitDTO1);
@@ -431,9 +434,9 @@ public class HabitServiceTest {
         Assertions.assertNotNull(result);
         Assertions.assertEquals(2, result.size());
         Assertions.assertEquals(habitDTO1.getTitle(), result.get(0).getTitle());
-        Assertions.assertEquals(habitDTO2.getCategory(), result.get(0).getCategory());
+        Assertions.assertEquals(habitDTO2.getCategoryId(), result.get(0).getCategoryId());
         Assertions.assertEquals(habitDTO2.getTitle(), result.get(1).getTitle());
-        Assertions.assertEquals(habitDTO2.getCategory(), result.get(1).getCategory());
+        Assertions.assertEquals(habitDTO2.getCategoryId(), result.get(1).getCategoryId());
 
         verify(habitRepository, times(1)).findByUser_idAndCategory_id(testUser.getId(), testCategory.getId());
         verify(modelMapper, times(1)).toHabitDTO(habit1);
@@ -469,11 +472,11 @@ public class HabitServiceTest {
 
         HabitDTO habitDTO1 = new HabitDTO();
         habitDTO1.setTitle("Habit1");
-        habitDTO1.setCategory(testCategory);
+        habitDTO1.setCategoryId(testCategory.getId());
 
         HabitDTO habitDTO2 = new HabitDTO();
         habitDTO2.setTitle("Habit2");
-        habitDTO2.setCategory(testCategory);
+        habitDTO2.setCategoryId(testCategory.getId());
 
         when(habitRepository.findByUser_idAndPriority(testUser.getId(), priority)).thenReturn(Optional.of(habits));
         when(modelMapper.toHabitDTO(habit1)).thenReturn(habitDTO1);
@@ -484,10 +487,10 @@ public class HabitServiceTest {
         Assertions.assertNotNull(result);
         Assertions.assertEquals(2, result.size());
         Assertions.assertEquals(habitDTO1.getTitle(), result.get(0).getTitle());
-        Assertions.assertEquals(habitDTO1.getCategory(), result.get(0).getCategory());
+        Assertions.assertEquals(habitDTO1.getCategoryId(), result.get(0).getCategoryId());
         Assertions.assertEquals(habitDTO1.getPriority(), result.get(0).getPriority());
         Assertions.assertEquals(habitDTO2.getTitle(), result.get(1).getTitle());
-        Assertions.assertEquals(habitDTO2.getCategory(), result.get(1).getCategory());
+        Assertions.assertEquals(habitDTO2.getCategoryId(), result.get(1).getCategoryId());
         Assertions.assertEquals(habitDTO2.getPriority(), result.get(1).getPriority());
 
         verify(habitRepository, times(1)).findByUser_idAndPriority(testUser.getId(), priority);

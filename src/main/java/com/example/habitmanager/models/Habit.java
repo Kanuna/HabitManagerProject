@@ -37,7 +37,7 @@ public class Habit {
     private List<LocalDate> specificDates;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "stats_id", nullable = false)
+    @JoinColumn(name = "stats_id", nullable = true)
     private Stats stats;
 
     @ManyToOne

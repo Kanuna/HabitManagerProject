@@ -41,13 +41,13 @@ public class HabitServiceImp implements HabitService {
 
         Habit savedHabit = habitRepository.save(habit);
 
-        StatsDTOCreate createdStats = statsServiceImp.createStats(habit.getId(), new StatsDTOCreate());
-        Stats stats = modelMapper.toStats(createdStats);
+        Stats stats = new Stats();
+        stats.setHabit(habit);
         savedHabit.setStats(stats);
 
-        savedHabit = habitRepository.save(savedHabit);
+        Habit updatedHabit = habitRepository.save(savedHabit);
 
-        return modelMapper.toHabitDTOCreate(savedHabit);
+        return modelMapper.toHabitDTOCreate(updatedHabit);
     }
 
     @Override

@@ -1,7 +1,6 @@
 package com.example.habitmanager.dto;
 
 import com.example.habitmanager.models.Habit;
-import com.example.habitmanager.models.User;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -16,9 +15,10 @@ public class CategoryDTO {
     public String name;
     @NotNull(message = "Color code is required")
     public String colorCode;
-    private List<Habit> habits;
+    /*private List<Habit> habits;*/
+    /*private int habitId;*/
     @NotNull
-    private User user;
+    private int userId;
 
 
     public void setName(String name) {

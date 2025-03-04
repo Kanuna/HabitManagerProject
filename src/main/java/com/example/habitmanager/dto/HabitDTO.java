@@ -4,6 +4,8 @@ import com.example.habitmanager.models.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import org.springframework.lang.Nullable;
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -21,11 +23,12 @@ public class HabitDTO {
     private List<Habit.daysEnum> specificDays;
     private List<LocalDate> specificDates;
 
+    @Nullable
+    private int statsId;
+    @Nullable
+    private int categoryId;
     @NotNull
-    private Stats stats;
-    private Category category;
-    @NotNull
-    private User user;
+    private int userId;
 
 
     public void setTitle(String title) {
