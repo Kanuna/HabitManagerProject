@@ -1,6 +1,9 @@
 package com.example.habitmanager.dto;
 
 
+import com.example.habitmanager.models.Habit;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,11 +11,12 @@ import lombok.Setter;
 @Getter
 @Setter
 public class StatsDTO {
+    @NotNull
+    private Habit habit;
 
     private int finishedTotalTimesWeek;
     private int finishedTotalTimesMonth;
     private int finishedTotalTimesYear;
-
     public int getFinishedTotalTimesAll(){
         return finishedTotalTimesWeek + finishedTotalTimesMonth + finishedTotalTimesYear;
     }

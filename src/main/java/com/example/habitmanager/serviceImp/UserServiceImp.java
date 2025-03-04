@@ -7,6 +7,8 @@ import com.example.habitmanager.mapper.ModelMapper;
 import com.example.habitmanager.models.User;
 import com.example.habitmanager.repositories.UserRepository;
 import com.example.habitmanager.services.UserService;
+import de.mkammerer.argon2.Argon2;
+import de.mkammerer.argon2.Argon2Factory;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,6 +24,13 @@ public class UserServiceImp implements UserService {
     @Override
     public UserDTOCreate createUser(UserDTOCreate userDTOCreate) {
         User user = modelMapper.toUser(userDTOCreate);
+        String userPassword = user.getPassword();
+
+        Argon2 argon2 = Argon2Factory.create();
+
+        String hashedPassword = argon2.hash(2, 65536, 2, userPassword.toCharArray());
+        user.setPassword(hashedPassword);
+
         User savedUser = userRepository.save(user);
         return modelMapper.toUserDTOCreate(savedUser);
     }
@@ -56,8 +65,12 @@ public class UserServiceImp implements UserService {
 
     @Override
     public boolean userLogin(String email, String password) {
-        return userRepository.findByEmail(email)
-                .map(user -> user.getPassword().equals(password)) // Compare passwords
-                .orElse(false);
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with email: " + email));
+
+        Argon2 argon2 = Argon2Factory.create();
+        String userHashedPassword = user.getPassword();
+
+        return argon2.verify(userHashedPassword, password.toCharArray());
     }
 }

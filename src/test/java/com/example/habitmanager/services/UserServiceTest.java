@@ -27,7 +27,7 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 public class UserServiceTest {
 
-   /* @Mock
+    @Mock
     private UserRepository userRepository;
     @Mock
     private HabitRepository habitRepository;
@@ -49,7 +49,7 @@ public class UserServiceTest {
     @BeforeEach
     void setUp() {
         testUser = new User();
-        testUser.setUser_id(1);
+        testUser.setId(1);
         testUser.setFirstname("test");
         testUser.setLastname("test");
         testUser.setAge(1);
@@ -84,12 +84,16 @@ public class UserServiceTest {
         UserDTOCreate createdUser = userServiceImp.createUser(testUserDTOCreate);
 
         Assertions.assertNotNull(createdUser);
-        Assertions.assertEquals(testUserDTOCreate.getUser_id(), createdUser.getUser_id());
+        Assertions.assertEquals(testUserDTOCreate.getId(), createdUser.getId());
         Assertions.assertEquals(testUserDTOCreate.getFirstname(), createdUser.getFirstname());
         Assertions.assertEquals(testUserDTOCreate.getLastname(), createdUser.getLastname());
         Assertions.assertEquals(testUserDTOCreate.getEmail(), createdUser.getEmail());
         Assertions.assertEquals(testUserDTOCreate.getPassword(), createdUser.getPassword());
         Assertions.assertEquals(testUserDTOCreate.getRole(), createdUser.getRole());
+
+        verify(modelMapper, times(1)).toUser(testUserDTOCreate);
+        verify(userRepository, times(1)).save(testUser);
+        verify(modelMapper, times(1)).toUserDTOCreate(testUser);
     }
 
     @Test
@@ -116,14 +120,16 @@ public class UserServiceTest {
         Assertions.assertEquals(expectedDTO.getRole(), result.getRole());
 
         verify(userRepository, times(1)).findById(1);
+        verify(modelMapper, times(1)).toUserDTO(testUser);
     }
     @Test
     void getUser_WithInvalidId_shouldThrowException() {
         when(userRepository.findById(99)).thenThrow(new ResourceNotFoundException("User with id 99 not found"));
 
         Assertions.assertThrows(ResourceNotFoundException.class,
-                () ->  { userServiceImp.getUserById(99);
-        });
+                () ->  userServiceImp.getUserById(99));
+
+        verify(userRepository, times(1)).findById(99);
     }
 
     @Test
@@ -150,7 +156,7 @@ public class UserServiceTest {
         updatedUser.setAge(userDTO.getAge());
         updatedUser.setEmail(userDTO.getEmail());
         updatedUser.setPassword(userDTO.getPassword());
-        updatedUser.setRole(User.RoleEnum.USER);
+        updatedUser.setRole(userDTO.getRole());
 
         when(userRepository.findById(1)).thenReturn(Optional.of(user));
         when(userRepository.save(user)).thenReturn(updatedUser);
@@ -167,22 +173,24 @@ public class UserServiceTest {
         Assertions.assertEquals(userDTO.getRole(), result.getRole());
 
         verify(userRepository, times(1)).findById(1);
-        verify(userRepository, times(1)).save(testUser);
+        verify(userRepository, times(1)).save(user);
+        verify(modelMapper, times(1)).toUserDTO(updatedUser);
     }
     @Test
     void updateUser_WithInvalidId_shouldThrowException() {
         when(userRepository.findById(99)).thenThrow(new ResourceNotFoundException("User with id 99 not found"));
 
         Assertions.assertThrows(ResourceNotFoundException.class,
-                () -> {userServiceImp.updateUser(99, new UserDTO());
-        });
+                () -> userServiceImp.updateUser(99, new UserDTO()));
+
+        verify(userRepository, times(1)).findById(99);
     }
 
     @Test
     void DeleteUser_WithValidId_shouldDeleteUserAndRelatedEntities() {
         int user_id = 1;
         User user = new User();
-        user.setUser_id(user_id);
+        user.setId(user_id);
         user.setFirstname("test");
         user.setLastname("test");
         user.setAge(1);
@@ -193,11 +201,11 @@ public class UserServiceTest {
         Stats stats = new Stats();
 
         Category category = new Category();
-        category.setCategory_id(1);
+        category.setId(1);
         category.setUser(user);
 
         Habit habit = new Habit();
-        habit.setHabit_id(1);
+        habit.setId(1);
         habit.setStats(stats);
         habit.setCategory(category);
         habit.setUser(user);
@@ -205,23 +213,21 @@ public class UserServiceTest {
 
         when(userRepository.findById(1)).thenReturn(Optional.of(user));
         userServiceImp.deleteUser(user_id);
-
-        verify(userRepository, times(1)).delete(user);
-        verify(userRepository, times(1)).findById(user_id);
-
         when(userRepository.findById(1)).thenReturn(Optional.empty());
 
         Optional<User> deletedUser = userRepository.findById(user_id);
         Assertions.assertTrue(deletedUser.isEmpty());
-    }
 
+        verify(userRepository, times(1)).delete(user);
+        verify(userRepository, times(2)).findById(user_id);
+    }
     @Test
     void DeleteUser_WithInvalidId_shouldReturnException() {
         when(userRepository.findById(99)).thenThrow(new ResourceNotFoundException("User with id 99 not found"));
 
         Assertions.assertThrows(ResourceNotFoundException.class,
-                () -> {
-                    userServiceImp.getUserById(99);
-                });
-    }*/
+                () -> userServiceImp.getUserById(99));
+
+        verify(userRepository, times(1)).findById(99);
+    }
 }

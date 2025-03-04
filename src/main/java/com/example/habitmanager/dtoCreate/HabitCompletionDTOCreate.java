@@ -7,9 +7,9 @@ import lombok.Getter;
 public class HabitCompletionDTOCreate extends HabitCompletionDTO {
     private int id;
 
-    public void setHabitId(int habit_id) {
-        if(habit_id > 0){
-            setHabitId(habit_id);
+    public void setId(int id) {
+        if(id > 0){
+            this.id = id;
         }
     }
 }

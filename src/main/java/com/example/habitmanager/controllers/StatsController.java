@@ -21,7 +21,7 @@ public class StatsController {
 
     @PostMapping("/{habit_id}/stats")
     public ResponseEntity<StatsDTOCreate> createStats(@PathVariable int habit_id, @RequestBody StatsDTOCreate statsDTOCreate) {
-        StatsDTOCreate createdStats = statsServiceImp.createStatsDTO(habit_id, statsDTOCreate);
+        StatsDTOCreate createdStats = statsServiceImp.createStats(habit_id, statsDTOCreate);
 
         URI location = URI.create("/stats/" + createdStats.getId());
         return ResponseEntity.created(location).body(createdStats);
@@ -41,7 +41,7 @@ public class StatsController {
 
     @PutMapping("/{id}")
     public ResponseEntity<StatsDTO> updateStats(@PathVariable int id, @RequestBody StatsDTO statsDTO) {
-        statsServiceImp.updateStatsDTO(id, statsDTO);
+        statsServiceImp.updateStats(id, statsDTO);
         return ResponseEntity.ok(statsDTO);
     }
 }
