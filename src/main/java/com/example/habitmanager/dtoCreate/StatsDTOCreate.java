@@ -9,9 +9,9 @@ import lombok.Setter;
 public class StatsDTOCreate extends StatsDTO {
     private int id;
 
-    public void setHabitId(int habit_id) {
-        if(habit_id > 0){
-            getHabit().setId(habit_id);
+    public void setId(int id) {
+        if(id > 0){
+            this.id = id;
         }
     }
 }
