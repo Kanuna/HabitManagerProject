@@ -3,6 +3,7 @@ package com.example.habitmanager.services;
 import com.example.habitmanager.ResourceNotFoundException.ResourceNotFoundException;
 import com.example.habitmanager.dto.HabitDTO;
 import com.example.habitmanager.dtoCreate.HabitDTOCreate;
+import com.example.habitmanager.mapper.ModelMapper;
 import com.example.habitmanager.models.Category;
 import com.example.habitmanager.models.Habit;
 import com.example.habitmanager.models.Stats;
@@ -10,7 +11,6 @@ import com.example.habitmanager.models.User;
 import com.example.habitmanager.repositories.CategoryRepository;
 import com.example.habitmanager.repositories.HabitRepository;
 import com.example.habitmanager.repositories.StatsRepository;
-import com.example.habitmanager.mapper.ModelMapperOld;
 import com.example.habitmanager.serviceImp.HabitServiceImp;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -35,7 +35,7 @@ public class HabitServiceTest {
     private StatsRepository statsRepository;
 
     @Mock
-    private ModelMapperOld modelMapperOld;
+    private ModelMapper modelMapper;
 
     @InjectMocks
     private HabitServiceImp habitServiceImp;
@@ -109,9 +109,9 @@ public class HabitServiceTest {
         testHabitDTOCreate.setHabitType(Habit.HabitType.WEEKLY);
         testHabitDTOCreate.setAmountAWeek(4);
 
-        when(modelMapperOld.toHabit(testHabitDTOCreate)).thenReturn(testHabit);
+        when(modelMapper.toHabit(testHabitDTOCreate)).thenReturn(testHabit);
         when(habitRepository.save(testHabit)).thenReturn(testHabit);
-        when(modelMapperOld.toHabitDTOCreate(testHabit)).thenReturn(testHabitDTOCreate);
+        when(modelMapper.toHabitDTOCreate(testHabit)).thenReturn(testHabitDTOCreate);
 
         HabitDTOCreate createdHabit = habitServiceImp.createHabit(1, testHabitDTOCreate);
 
@@ -119,18 +119,18 @@ public class HabitServiceTest {
         Assertions.assertEquals(Habit.HabitType.WEEKLY, createdHabit.getHabitType());
         Assertions.assertEquals(4, createdHabit.getAmountAWeek());
 
-        verify(modelMapperOld, times(1)).toHabit(testHabitDTOCreate);
+        verify(modelMapper, times(1)).toHabit(testHabitDTOCreate);
         verify(habitRepository, times(1)).save(testHabit);
-        verify(modelMapperOld, times(1)).toHabitDTOCreate(testHabit);
+        verify(modelMapper, times(1)).toHabitDTOCreate(testHabit);
     }
     @Test
     void createHabit_withTypeSpecificDays() {
         testHabitDTOCreate.setHabitType(Habit.HabitType.SPECIFIC_DAYS);
         testHabitDTOCreate.setSpecificDays(Arrays.asList(Habit.daysEnum.MONDAY, Habit.daysEnum.WEDNESDAY, Habit.daysEnum.FRIDAY));
 
-        when(modelMapperOld.toHabit(testHabitDTOCreate)).thenReturn(testHabit);
+        when(modelMapper.toHabit(testHabitDTOCreate)).thenReturn(testHabit);
         when(habitRepository.save(testHabit)).thenReturn(testHabit);
-        when(modelMapperOld.toHabitDTOCreate(testHabit)).thenReturn(testHabitDTOCreate);
+        when(modelMapper.toHabitDTOCreate(testHabit)).thenReturn(testHabitDTOCreate);
 
         HabitDTOCreate createdHabit = habitServiceImp.createHabit(1, testHabitDTOCreate);
 
@@ -140,9 +140,9 @@ public class HabitServiceTest {
         Assertions.assertTrue(createdHabit.getSpecificDays().contains(Habit.daysEnum.WEDNESDAY));
         Assertions.assertTrue(createdHabit.getSpecificDays().contains(Habit.daysEnum.FRIDAY));
 
-        verify(modelMapperOld, times(1)).toHabit(testHabitDTOCreate);
+        verify(modelMapper, times(1)).toHabit(testHabitDTOCreate);
         verify(habitRepository, times(1)).save(testHabit);
-        verify(modelMapperOld, times(1)).toHabitDTOCreate(testHabit);
+        verify(modelMapper, times(1)).toHabitDTOCreate(testHabit);
 
     }
     @Test
@@ -151,9 +151,9 @@ public class HabitServiceTest {
         testHabitDTOCreate.setSpecificDates(Arrays.asList(LocalDate.of(2025, 2, 20),
                                                           LocalDate.of(2025, 2, 25)));
 
-        when(modelMapperOld.toHabit(testHabitDTOCreate)).thenReturn(testHabit);
+        when(modelMapper.toHabit(testHabitDTOCreate)).thenReturn(testHabit);
         when(habitRepository.save(testHabit)).thenReturn(testHabit);
-        when(modelMapperOld.toHabitDTOCreate(testHabit)).thenReturn(testHabitDTOCreate);
+        when(modelMapper.toHabitDTOCreate(testHabit)).thenReturn(testHabitDTOCreate);
 
         HabitDTOCreate createdHabit = habitServiceImp.createHabit(1, testHabitDTOCreate);
 
@@ -162,9 +162,9 @@ public class HabitServiceTest {
         Assertions.assertTrue(createdHabit.getSpecificDates().contains(LocalDate.of(2025, 2, 20)));
         Assertions.assertTrue(createdHabit.getSpecificDates().contains(LocalDate.of(2025, 2, 25)));
 
-        verify(modelMapperOld, times(1)).toHabit(testHabitDTOCreate);
+        verify(modelMapper, times(1)).toHabit(testHabitDTOCreate);
         verify(habitRepository, times(1)).save(testHabit);
-        verify(modelMapperOld, times(1)).toHabitDTOCreate(testHabit);
+        verify(modelMapper, times(1)).toHabitDTOCreate(testHabit);
     }
 
     @Test
@@ -204,7 +204,7 @@ public class HabitServiceTest {
 
 
         when(habitRepository.findById(1)).thenReturn(Optional.of(testHabit));
-        when(modelMapperOld.toHabitDTO(testHabit)).thenReturn(expectedDTO);
+        when(modelMapper.toHabitDTO(testHabit)).thenReturn(expectedDTO);
 
         HabitDTO result = habitServiceImp.getHabitById(1);
 
@@ -220,7 +220,7 @@ public class HabitServiceTest {
         Assertions.assertEquals(expectedDTO.getSpecificDates(), result.getSpecificDates());
 
         verify(habitRepository, times(1)).findById(1);
-        verify(modelMapperOld, times(1)).toHabitDTO(testHabit);
+        verify(modelMapper, times(1)).toHabitDTO(testHabit);
     }
     @Test
     void getUser_WithInvalidId_shouldThrowException() {
@@ -291,7 +291,7 @@ public class HabitServiceTest {
 
         when(habitRepository.findById(1)).thenReturn(Optional.of(habit));
         when(habitRepository.save(habit)).thenReturn(updatedHabit);
-        when(modelMapperOld.toHabitDTO(updatedHabit)).thenReturn(habitDTO);
+        when(modelMapper.toHabitDTO(updatedHabit)).thenReturn(habitDTO);
 
         HabitDTO result = habitServiceImp.updateHabit(1, habitDTO);
 
@@ -307,7 +307,7 @@ public class HabitServiceTest {
 
         verify(habitRepository, times(1)).findById(1);
         verify(habitRepository, times(1)).save(habit);
-        verify(modelMapperOld, times(1)).toHabitDTO(updatedHabit);
+        verify(modelMapper, times(1)).toHabitDTO(updatedHabit);
     }
     @Test
     void updateHabit_WithInvalidId_shouldThrowException() {
@@ -375,8 +375,8 @@ public class HabitServiceTest {
         habitDTO2.setTitle("Habit2");
 
         when(habitRepository.findByUser_id(user_id)).thenReturn(Optional.of(habits));
-        when(modelMapperOld.toHabitDTO(habit1)).thenReturn(habitDTO1);
-        when(modelMapperOld.toHabitDTO(habit2)).thenReturn(habitDTO2);
+        when(modelMapper.toHabitDTO(habit1)).thenReturn(habitDTO1);
+        when(modelMapper.toHabitDTO(habit2)).thenReturn(habitDTO2);
 
         List<HabitDTO> result = habitServiceImp.getAllHabitsFromUser(user_id);
 
@@ -385,8 +385,8 @@ public class HabitServiceTest {
         Assertions.assertEquals(habitDTO2.getTitle(), result.get(1).getTitle());
 
         verify(habitRepository, times(1)).findByUser_id(user_id);
-        verify(modelMapperOld, times(1)).toHabitDTO(habit1);
-        verify(modelMapperOld, times(1)).toHabitDTO(habit2);
+        verify(modelMapper, times(1)).toHabitDTO(habit1);
+        verify(modelMapper, times(1)).toHabitDTO(habit2);
     }
     @Test
     void getAllHabits_withInvalidUserId(){
@@ -423,8 +423,8 @@ public class HabitServiceTest {
         habitDTO2.setCategory(testCategory);
 
         when(habitRepository.findByUser_idAndCategory_id(testUser.getId(), testCategory.getId())).thenReturn(Optional.of(habits));
-        when(modelMapperOld.toHabitDTO(habit1)).thenReturn(habitDTO1);
-        when(modelMapperOld.toHabitDTO(habit2)).thenReturn(habitDTO2);
+        when(modelMapper.toHabitDTO(habit1)).thenReturn(habitDTO1);
+        when(modelMapper.toHabitDTO(habit2)).thenReturn(habitDTO2);
 
         List<HabitDTO> result = habitServiceImp.getAllHabitsFromUserAndCategory(testUser.getId(), testCategory.getId());
 
@@ -436,8 +436,8 @@ public class HabitServiceTest {
         Assertions.assertEquals(habitDTO2.getCategory(), result.get(1).getCategory());
 
         verify(habitRepository, times(1)).findByUser_idAndCategory_id(testUser.getId(), testCategory.getId());
-        verify(modelMapperOld, times(1)).toHabitDTO(habit1);
-        verify(modelMapperOld, times(1)).toHabitDTO(habit2);
+        verify(modelMapper, times(1)).toHabitDTO(habit1);
+        verify(modelMapper, times(1)).toHabitDTO(habit2);
     }
     @Test
     void getAllHabits_withInvalidUserIdAndValidCategory_shouldThrowException(){
@@ -476,8 +476,8 @@ public class HabitServiceTest {
         habitDTO2.setCategory(testCategory);
 
         when(habitRepository.findByUser_idAndPriority(testUser.getId(), priority)).thenReturn(Optional.of(habits));
-        when(modelMapperOld.toHabitDTO(habit1)).thenReturn(habitDTO1);
-        when(modelMapperOld.toHabitDTO(habit2)).thenReturn(habitDTO2);
+        when(modelMapper.toHabitDTO(habit1)).thenReturn(habitDTO1);
+        when(modelMapper.toHabitDTO(habit2)).thenReturn(habitDTO2);
 
         List<HabitDTO> result = habitServiceImp.getAllHabitsFromUserAndPriority(testUser.getId(), priority);
 
@@ -491,8 +491,8 @@ public class HabitServiceTest {
         Assertions.assertEquals(habitDTO2.getPriority(), result.get(1).getPriority());
 
         verify(habitRepository, times(1)).findByUser_idAndPriority(testUser.getId(), priority);
-        verify(modelMapperOld, times(1)).toHabitDTO(habit1);
-        verify(modelMapperOld, times(1)).toHabitDTO(habit2);
+        verify(modelMapper, times(1)).toHabitDTO(habit1);
+        verify(modelMapper, times(1)).toHabitDTO(habit2);
     }
     @Test
     void getAllHabits_withInvalidUserAndValidPriority_shouldThrowException(){

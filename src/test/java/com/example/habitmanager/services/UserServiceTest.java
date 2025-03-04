@@ -3,7 +3,7 @@ package com.example.habitmanager.services;
 import com.example.habitmanager.ResourceNotFoundException.ResourceNotFoundException;
 import com.example.habitmanager.dto.UserDTO;
 import com.example.habitmanager.dtoCreate.UserDTOCreate;
-import com.example.habitmanager.mapper.ModelMapperOld;
+import com.example.habitmanager.mapper.ModelMapper;
 import com.example.habitmanager.models.Category;
 import com.example.habitmanager.models.Habit;
 import com.example.habitmanager.models.Stats;
@@ -37,7 +37,7 @@ public class UserServiceTest {
     private CategoryRepository categoryRepository;
 
     @Mock
-    private ModelMapperOld modelMapperOld;
+    private ModelMapper modelMapper;
 
     @InjectMocks
     private UserServiceImp userServiceImp;
@@ -77,9 +77,9 @@ public class UserServiceTest {
 
     @Test
     void createUser_WithValidUser() {
-        when(modelMapperOld.toUser(testUserDTOCreate)).thenReturn(testUser);
+        when(modelMapper.toUser(testUserDTOCreate)).thenReturn(testUser);
         when(userRepository.save(testUser)).thenReturn(testUser);
-        when(modelMapperOld.toUserDTOCreate(testUser)).thenReturn(testUserDTOCreate);
+        when(modelMapper.toUserDTOCreate(testUser)).thenReturn(testUserDTOCreate);
 
         UserDTOCreate createdUser = userServiceImp.createUser(testUserDTOCreate);
 
@@ -91,9 +91,9 @@ public class UserServiceTest {
         Assertions.assertEquals(testUserDTOCreate.getPassword(), createdUser.getPassword());
         Assertions.assertEquals(testUserDTOCreate.getRole(), createdUser.getRole());
 
-        verify(modelMapperOld, times(1)).toUser(testUserDTOCreate);
+        verify(modelMapper, times(1)).toUser(testUserDTOCreate);
         verify(userRepository, times(1)).save(testUser);
-        verify(modelMapperOld, times(1)).toUserDTOCreate(testUser);
+        verify(modelMapper, times(1)).toUserDTOCreate(testUser);
     }
 
     @Test
@@ -107,7 +107,7 @@ public class UserServiceTest {
         expectedDTO.setRole(User.RoleEnum.USER);
 
         when(userRepository.findById(1)).thenReturn(Optional.of(testUser));
-        when(modelMapperOld.toUserDTO(testUser)).thenReturn(expectedDTO);
+        when(modelMapper.toUserDTO(testUser)).thenReturn(expectedDTO);
 
         UserDTO result = userServiceImp.getUserById(1);
 
@@ -120,7 +120,7 @@ public class UserServiceTest {
         Assertions.assertEquals(expectedDTO.getRole(), result.getRole());
 
         verify(userRepository, times(1)).findById(1);
-        verify(modelMapperOld, times(1)).toUserDTO(testUser);
+        verify(modelMapper, times(1)).toUserDTO(testUser);
     }
     @Test
     void getUser_WithInvalidId_shouldThrowException() {
@@ -160,7 +160,7 @@ public class UserServiceTest {
 
         when(userRepository.findById(1)).thenReturn(Optional.of(user));
         when(userRepository.save(user)).thenReturn(updatedUser);
-        when(modelMapperOld.toUserDTO(updatedUser)).thenReturn(userDTO);
+        when(modelMapper.toUserDTO(updatedUser)).thenReturn(userDTO);
 
         UserDTO result = userServiceImp.updateUser(1, userDTO);
 
@@ -174,7 +174,7 @@ public class UserServiceTest {
 
         verify(userRepository, times(1)).findById(1);
         verify(userRepository, times(1)).save(user);
-        verify(modelMapperOld, times(1)).toUserDTO(updatedUser);
+        verify(modelMapper, times(1)).toUserDTO(updatedUser);
     }
     @Test
     void updateUser_WithInvalidId_shouldThrowException() {
