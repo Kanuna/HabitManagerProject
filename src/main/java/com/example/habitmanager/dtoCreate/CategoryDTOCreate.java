@@ -9,6 +9,7 @@ import lombok.Setter;
 public class CategoryDTOCreate extends CategoryDTO {
     private int id;
 
+
     public void setId(int id) {
         if(id > 0){
             this.id = id;

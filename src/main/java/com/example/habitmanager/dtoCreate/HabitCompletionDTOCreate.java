@@ -5,11 +5,11 @@ import lombok.Getter;
 
 @Getter
 public class HabitCompletionDTOCreate extends HabitCompletionDTO {
-    private int habitId;
+    private int id;
 
-    public void setHabitId(int habitId) {
-        if(habitId > 0){
-            this.habitId = habitId;
+    public void setId(int id) {
+        if(id > 0){
+            this.id = id;
         }
     }
 }

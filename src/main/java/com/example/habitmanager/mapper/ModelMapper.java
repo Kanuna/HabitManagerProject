@@ -28,7 +28,7 @@ public class ModelMapper {
         user.setRole(userDTOCreate.getRole());
         return user;
     }
-    public  UserDTOCreate toUserCreateDTO(User user){
+    public  UserDTOCreate toUserDTOCreate(User user){
         UserDTOCreate userDTOCreate = new UserDTOCreate();
         userDTOCreate.setId(user.getId());
         userDTOCreate.setFirstname(user.getFirstname());
@@ -64,7 +64,7 @@ public class ModelMapper {
         habit.setUser(habitDTO.getUser());
         return habit;
     }
-    public  HabitDTOCreate toHabitCreateDTO(Habit habit){
+    public  HabitDTOCreate toHabitDTOCreate(Habit habit){
         HabitDTOCreate habitDTOCreate = new HabitDTOCreate();
         habitDTOCreate.setId(habit.getId());
         habitDTOCreate.setTitle(habit.getTitle());
