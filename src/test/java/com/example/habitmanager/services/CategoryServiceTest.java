@@ -3,7 +3,7 @@ package com.example.habitmanager.services;
 import com.example.habitmanager.ResourceNotFoundException.ResourceNotFoundException;
 import com.example.habitmanager.dto.CategoryDTO;
 import com.example.habitmanager.dtoCreate.CategoryDTOCreate;
-import com.example.habitmanager.mapper.ModelMapper;
+import com.example.habitmanager.mapper.ModelMapperOld;
 import com.example.habitmanager.models.Category;
 import com.example.habitmanager.models.Habit;
 import com.example.habitmanager.models.User;
@@ -32,7 +32,7 @@ public class CategoryServiceTest {
     private UserRepository userRepository;
 
     @Mock
-    private ModelMapper modelMapper;
+    private ModelMapperOld modelMapperOld;
 
     @InjectMocks
     private CategoryServiceImp categoryServiceImp;
@@ -82,9 +82,9 @@ public class CategoryServiceTest {
 
     @Test
     void createCategory_WithValidCategory() {
-        when(modelMapper.toCategory(testCategoryDTOCreate)).thenReturn(testCategory);
+        when(modelMapperOld.toCategory(testCategoryDTOCreate)).thenReturn(testCategory);
         when(categoryRepository.save(testCategory)).thenReturn(testCategory);
-        when(modelMapper.toCategoryDTOCreate(testCategory)).thenReturn(testCategoryDTOCreate);
+        when(modelMapperOld.toCategoryDTOCreate(testCategory)).thenReturn(testCategoryDTOCreate);
 
         CategoryDTOCreate createdCategory = categoryServiceImp.createCategory(1, testCategoryDTOCreate);
 
@@ -95,9 +95,9 @@ public class CategoryServiceTest {
         Assertions.assertEquals(testCategoryDTOCreate.getHabits(), createdCategory.getHabits());
         Assertions.assertEquals(testCategoryDTOCreate.getName(), createdCategory.getName());
 
-        verify(modelMapper, times(1)).toCategory(testCategoryDTOCreate);
+        verify(modelMapperOld, times(1)).toCategory(testCategoryDTOCreate);
         verify(categoryRepository, times(1)).save(testCategory);
-        verify(modelMapper, times(1)).toCategoryDTOCreate(testCategory);
+        verify(modelMapperOld, times(1)).toCategoryDTOCreate(testCategory);
     }
 
     @Test
@@ -110,7 +110,7 @@ public class CategoryServiceTest {
         expectedCategory.setColorCode("#123456");
 
         when(categoryRepository.findById(1)).thenReturn(Optional.of(testCategory));
-        when(modelMapper.toCategoryDTO(testCategory)).thenReturn(testCategoryDTO);
+        when(modelMapperOld.toCategoryDTO(testCategory)).thenReturn(testCategoryDTO);
 
         CategoryDTO result = categoryServiceImp.getCategoryFromId(1);
 
@@ -121,7 +121,7 @@ public class CategoryServiceTest {
         Assertions.assertEquals(testCategoryDTO.getColorCode(), result.getColorCode());
 
         verify( categoryRepository, times(1)).findById(1);
-        verify( modelMapper, times(1)).toCategoryDTO(testCategory);
+        verify(modelMapperOld, times(1)).toCategoryDTO(testCategory);
     }
     @Test
     void getCategory_WithInvalidId_shouldThrowException(){
@@ -156,7 +156,7 @@ public class CategoryServiceTest {
 
         when(categoryRepository.findById(1)).thenReturn(Optional.of(category));
         when(categoryRepository.save(category)).thenReturn(updatedCategory);
-        when(modelMapper.toCategoryDTO(updatedCategory)).thenReturn(categoryDTO);
+        when(modelMapperOld.toCategoryDTO(updatedCategory)).thenReturn(categoryDTO);
 
         CategoryDTO result = categoryServiceImp.updateCategory(1, categoryDTO);
 
@@ -168,7 +168,7 @@ public class CategoryServiceTest {
 
         verify( categoryRepository, times(1)).findById(1);
         verify( categoryRepository, times(1)).save(category);
-        verify( modelMapper, times(1)).toCategoryDTO(updatedCategory);
+        verify(modelMapperOld, times(1)).toCategoryDTO(updatedCategory);
     }
     @Test
     void updateCategory_WithInvalidId_shouldThrowException(){
@@ -208,8 +208,8 @@ public class CategoryServiceTest {
         category2.setUser(testUser);
 
         when(categoryRepository.findByUser_id(user_id)).thenReturn(Optional.of(categories));
-        when(modelMapper.toCategoryDTO(category1)).thenReturn(categoryDTO1);
-        when(modelMapper.toCategoryDTO(category2)).thenReturn(categoryDTO2);
+        when(modelMapperOld.toCategoryDTO(category1)).thenReturn(categoryDTO1);
+        when(modelMapperOld.toCategoryDTO(category2)).thenReturn(categoryDTO2);
 
         List<CategoryDTO> result = categoryServiceImp.getAllCategoriesFromUser(user_id);
 
@@ -224,8 +224,8 @@ public class CategoryServiceTest {
         Assertions.assertEquals(categoryDTO2.getUser(), result.get(1).getUser());
 
         verify( categoryRepository, times(1)).findByUser_id(user_id);
-        verify( modelMapper, times(1)).toCategoryDTO(category1);
-        verify( modelMapper, times(1)).toCategoryDTO(category2);
+        verify(modelMapperOld, times(1)).toCategoryDTO(category1);
+        verify(modelMapperOld, times(1)).toCategoryDTO(category2);
 
     }
 

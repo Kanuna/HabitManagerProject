@@ -4,6 +4,7 @@ import com.example.habitmanager.ResourceNotFoundException.ResourceNotFoundExcept
 import com.example.habitmanager.dto.CategoryDTO;
 import com.example.habitmanager.dtoCreate.CategoryDTOCreate;
 import com.example.habitmanager.mapper.ModelMapper;
+import com.example.habitmanager.mapper.ModelMapperOld;
 import com.example.habitmanager.models.Category;
 import com.example.habitmanager.models.Habit;
 import com.example.habitmanager.repositories.CategoryRepository;
@@ -11,7 +12,6 @@ import com.example.habitmanager.services.CategoryService;
 import com.example.habitmanager.repositories.HabitRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -21,25 +21,29 @@ public class CategoryServiceImp implements CategoryService {
     private final CategoryRepository categoryRepository;
     private final HabitRepository habitRepository;
     private final ModelMapper modelMapper;
+    private final ModelMapperOld modelMapperOld;
 
-    public CategoryServiceImp(CategoryRepository categoryRepository, HabitRepository habitRepository, ModelMapper modelMapper) {
+    public CategoryServiceImp(CategoryRepository categoryRepository, HabitRepository habitRepository, ModelMapper modelMapper, ModelMapperOld modelMapperOld) {
         this.categoryRepository = categoryRepository;
         this.habitRepository = habitRepository;
         this.modelMapper = modelMapper;
+        this.modelMapperOld = modelMapperOld;
     }
 
     @Override
     public CategoryDTOCreate createCategory(@PathVariable int user_id, CategoryDTOCreate categoryDTOCreate) {
-        categoryDTOCreate.setUser_id(user_id);
+        categoryDTOCreate.setId(user_id);
+        //Category category = modelMapperOld.toCategory(categoryDTOCreate);
         Category category = modelMapper.toCategory(categoryDTOCreate);
         Category savedCategory = categoryRepository.save(category);
-        return modelMapper.toCategoryDTOCreate(savedCategory);
+        return modelMapperOld.toCategoryDTOCreate(savedCategory);
     }
 
     @Override
     public CategoryDTO getCategoryFromId(int category_id) {
         Category category = categoryRepository.findById(category_id)
                 .orElseThrow(() -> new ResourceNotFoundException("Category not found with id: " + category_id));
+        //return modelMapperOld.toCategoryDTO(category);
         return modelMapper.toCategoryDTO(category);
     }
 
@@ -52,6 +56,7 @@ public class CategoryServiceImp implements CategoryService {
         category.setColorCode(categoryDTO.getColorCode());
 
         Category savedCategory = categoryRepository.save(category);
+        //return modelMapperOld.toCategoryDTO(savedCategory);
         return modelMapper.toCategoryDTO(savedCategory);
     }
 
@@ -61,6 +66,7 @@ public class CategoryServiceImp implements CategoryService {
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
 
         return categories.stream()
+                //.map(modelMapperOld::toCategoryDTO)
                 .map(modelMapper::toCategoryDTO)
                 .collect(Collectors.toList());
     }

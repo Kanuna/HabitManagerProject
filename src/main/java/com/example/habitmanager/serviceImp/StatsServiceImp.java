@@ -2,46 +2,42 @@ package com.example.habitmanager.serviceImp;
 
 import com.example.habitmanager.dto.StatsDTO;
 import com.example.habitmanager.dtoCreate.StatsDTOCreate;
-import com.example.habitmanager.mapper.ModelMapper;
+import com.example.habitmanager.mapper.ModelMapperOld;
 import com.example.habitmanager.models.Stats;
 import com.example.habitmanager.repositories.StatsRepository;
 import com.example.habitmanager.services.StatsService;
-import jakarta.persistence.Column;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
-
-import java.util.List;
 
 @Service
 public class StatsServiceImp implements StatsService {
     private final StatsRepository statsRepository;
-    private final ModelMapper modelMapper;
+    private final ModelMapperOld modelMapperOld;
 
-    public StatsServiceImp(StatsRepository statsRepository, ModelMapper modelMapper) {
+    public StatsServiceImp(StatsRepository statsRepository, ModelMapperOld modelMapperOld) {
         this.statsRepository = statsRepository;
-        this.modelMapper = modelMapper;
+        this.modelMapperOld = modelMapperOld;
     }
 
     @Override
     public StatsDTOCreate createStatsDTO(int habit_id, StatsDTOCreate statsDTOCreate) {
         statsDTOCreate.setHabitId(habit_id);
-        Stats stats = modelMapper.toStats(statsDTOCreate);
+        Stats stats = modelMapperOld.toStats(statsDTOCreate);
         Stats savedStats = statsRepository.save(stats);
-        return modelMapper.toStatsDTOCreate(savedStats);
+        return modelMapperOld.toStatsDTOCreate(savedStats);
     }
 
     @Override
     public StatsDTO getStatsById(int stats_id) {
         Stats stats = statsRepository.findById(stats_id)
                 .orElseThrow(() -> new IllegalArgumentException("Stats not found with id: " + stats_id));
-        return modelMapper.toStatsDTO(stats);
+        return modelMapperOld.toStatsDTO(stats);
     }
 
     @Override
     public StatsDTO getStatsByHabitId(int habit_id) {
         Stats stats = statsRepository.findByHabit_id(habit_id)
                 .orElseThrow(() -> new IllegalArgumentException("Stats not found with id: " + habit_id));
-        return modelMapper.toStatsDTO(stats);
+        return modelMapperOld.toStatsDTO(stats);
     }
 
     @Override
@@ -57,6 +53,6 @@ public class StatsServiceImp implements StatsService {
         stats.setNotFinishedTotalTimesMonth(statsDTO.getNotFinishedTotalTimesMonth());
         stats.setNotFinishedTotalTimesYear(statsDTO.getNotFinishedTotalTimesYear());
 
-        return modelMapper.toStatsDTO(stats);
+        return modelMapperOld.toStatsDTO(stats);
     }
 }

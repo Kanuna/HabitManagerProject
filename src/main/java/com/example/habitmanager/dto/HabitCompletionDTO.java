@@ -1,5 +1,6 @@
 package com.example.habitmanager.dto;
 
+import com.example.habitmanager.models.Habit;
 import com.example.habitmanager.models.HabitCompletion;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -13,4 +14,6 @@ public class HabitCompletionDTO {
     private LocalDate date;
     @NotNull
     private HabitCompletion.State state;
+    @NotNull
+    private Habit habit;
 }

@@ -3,39 +3,38 @@ package com.example.habitmanager.serviceImp;
 import com.example.habitmanager.ResourceNotFoundException.ResourceNotFoundException;
 import com.example.habitmanager.dto.HabitDTO;
 import com.example.habitmanager.dtoCreate.HabitDTOCreate;
-import com.example.habitmanager.mapper.ModelMapper;
+import com.example.habitmanager.mapper.ModelMapperOld;
 import com.example.habitmanager.models.Habit;
 import com.example.habitmanager.repositories.HabitRepository;
 import com.example.habitmanager.services.HabitService;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class HabitServiceImp implements HabitService {
     private final HabitRepository habitRepository;
-    private final ModelMapper modelMapper;
+    private final ModelMapperOld modelMapperOld;
 
-    public HabitServiceImp(HabitRepository habitRepository, ModelMapper modelMapper) {
+    public HabitServiceImp(HabitRepository habitRepository, ModelMapperOld modelMapperOld) {
         this.habitRepository = habitRepository;
-        this.modelMapper = modelMapper;
+        this.modelMapperOld = modelMapperOld;
     }
 
     @Override
     public HabitDTOCreate createHabit(int user_id, HabitDTOCreate habitDTOCreate) {
         habitDTOCreate.setUser_id(user_id);
-        Habit habit = modelMapper.toHabit(habitDTOCreate);
+        Habit habit = modelMapperOld.toHabit(habitDTOCreate);
         Habit savedHabit = habitRepository.save(habit);
-        return modelMapper.toHabitDTOCreate(savedHabit);
+        return modelMapperOld.toHabitDTOCreate(savedHabit);
     }
 
     @Override
     public HabitDTO getHabitById(int habit_id) {
         Habit habit = habitRepository.findById(habit_id)
                 .orElseThrow(() -> new ResourceNotFoundException("Habit not found with id: " + habit_id));
-        return modelMapper.toHabitDTO(habit);
+        return modelMapperOld.toHabitDTO(habit);
     }
 
     @Override
@@ -51,7 +50,7 @@ public class HabitServiceImp implements HabitService {
         habit.setSpecificDates(habitDTO.getSpecificDates());
 
         Habit updatedHabit = habitRepository.save(habit);
-        return modelMapper.toHabitDTO(updatedHabit);
+        return modelMapperOld.toHabitDTO(updatedHabit);
     }
 
     @Override
@@ -67,7 +66,7 @@ public class HabitServiceImp implements HabitService {
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + user_id));
 
         return habits.stream()
-                .map(modelMapper::toHabitDTO)
+                .map(modelMapperOld::toHabitDTO)
                 .collect(Collectors.toList());
     }
 
@@ -78,7 +77,7 @@ public class HabitServiceImp implements HabitService {
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + user_id));
 
         return habits.stream()
-                .map(modelMapper::toHabitDTO)
+                .map(modelMapperOld::toHabitDTO)
                 .collect(Collectors.toList());
     }
 
@@ -89,7 +88,7 @@ public class HabitServiceImp implements HabitService {
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + user_id));
 
         return habits.stream()
-                .map(modelMapper::toHabitDTO)
+                .map(modelMapperOld::toHabitDTO)
                 .collect(Collectors.toList());
     }
 }

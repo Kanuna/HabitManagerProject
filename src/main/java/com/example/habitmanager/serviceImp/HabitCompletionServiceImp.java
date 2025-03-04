@@ -4,6 +4,7 @@ import com.example.habitmanager.ResourceNotFoundException.ResourceNotFoundExcept
 import com.example.habitmanager.dto.HabitCompletionDTO;
 import com.example.habitmanager.dtoCreate.HabitCompletionDTOCreate;
 import com.example.habitmanager.mapper.ModelMapper;
+import com.example.habitmanager.mapper.ModelMapperOld;
 import com.example.habitmanager.models.HabitCompletion;
 import com.example.habitmanager.repositories.HabitCompletionRepository;
 import com.example.habitmanager.services.HabitCompletionService;
@@ -16,6 +17,7 @@ import java.util.stream.Collectors;
 public class HabitCompletionServiceImp implements HabitCompletionService {
     private final HabitCompletionRepository habitCompletionRepository;
     private final ModelMapper modelMapper;
+    //private final ModelMapperOld modelMapperOld;
 
     public HabitCompletionServiceImp(HabitCompletionRepository habitCompletionRepository, ModelMapper modelMapper) {
         this.habitCompletionRepository = habitCompletionRepository;
@@ -25,8 +27,10 @@ public class HabitCompletionServiceImp implements HabitCompletionService {
     @Override
     public HabitCompletionDTOCreate createHabitCompletion(int habit_id, HabitCompletionDTOCreate habitCompletionDTOCreate) {
         habitCompletionDTOCreate.setHabitId(habit_id);
+        //HabitCompletion habitCompletion = modelMapperOld.toHabitCompletion(habitCompletionDTOCreate);
         HabitCompletion habitCompletion = modelMapper.toHabitCompletion(habitCompletionDTOCreate);
         HabitCompletion habitSaved = habitCompletionRepository.save(habitCompletion);
+        //return modelMapperOld.toHabitCompletionDTOCreate(habitSaved);
         return modelMapper.toHabitCompletionDTOCreate(habitSaved);
     }
 
@@ -39,6 +43,7 @@ public class HabitCompletionServiceImp implements HabitCompletionService {
         habitCompletion.setState(habitCompletionDTO.getState());
 
         HabitCompletion habitSaved = habitCompletionRepository.save(habitCompletion);
+        //return modelMapperOld.toHabitCompletionDTO(habitSaved);
         return modelMapper.toHabitCompletionDTO(habitSaved);
     }
 
@@ -57,6 +62,7 @@ public class HabitCompletionServiceImp implements HabitCompletionService {
                 .orElseThrow(() -> new ResourceNotFoundException("Habit not found with id" + habit_id));
 
         return habitCompletions.stream()
+                //.map(modelMapperOld::toHabitCompletionDTO)
                 .map(modelMapper::toHabitCompletionDTO)
                 .collect(Collectors.toList());
     }
@@ -66,6 +72,7 @@ public class HabitCompletionServiceImp implements HabitCompletionService {
         HabitCompletion habitCompletion = habitCompletionRepository.findByDateAndHabit_id(date, habit_id)
                 .orElseThrow(() -> new ResourceNotFoundException("Habit not found with id: " + habit_id));
 
+        //return modelMapperOld.toHabitCompletionDTO(habitCompletion);
         return modelMapper.toHabitCompletionDTO(habitCompletion);
     }
 
@@ -78,6 +85,7 @@ public class HabitCompletionServiceImp implements HabitCompletionService {
             habitCompletion.setState(habitCompletionDTO.getState());
         }
         HabitCompletion habitSaved = habitCompletionRepository.save(habitCompletion);
+        //return modelMapperOld.toHabitCompletionDTO(habitSaved);
         return modelMapper.toHabitCompletionDTO(habitSaved);
     }
 }

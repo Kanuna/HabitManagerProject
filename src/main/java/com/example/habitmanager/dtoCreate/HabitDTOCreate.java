@@ -7,9 +7,9 @@ import lombok.Getter;
 public class HabitDTOCreate extends HabitDTO {
     private int id;
 
-    public void setUser_id(int user_id) {
-        if(user_id > 0){
-            getUser().setId(user_id);
+    public void setId(int id) {
+        if(id > 0){
+            this.id = id;
         }
     }
 }
