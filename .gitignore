@@ -36,3 +36,25 @@ out/
 ### VS Code ###
 .vscode/
 /src/main/resources/CredInfo.properties
+
+
+
+# C# / .NET / Avalonia
+frontend/bin/
+frontend/obj/
+frontend/.vs/
+frontend/*.user
+frontend/*.suo
+frontend/*.cache
+frontend/*.csproj.user
+frontend/*.db
+
+
+# NuGet
+frontend/packages/
+frontend/project.lock.json
+frontend/project.assets.json
+frontend/nupkg/
+frontend/*.snupkg
+
+frontend/wwwroot/
