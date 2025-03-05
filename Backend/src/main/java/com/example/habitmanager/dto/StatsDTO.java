@@ -11,9 +11,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class StatsDTO {
-    @NotNull
-    private Habit habit;
-
     private int finishedTotalTimesWeek;
     private int finishedTotalTimesMonth;
     private int finishedTotalTimesYear;

@@ -68,14 +68,12 @@ public class CategoryServiceTest {
         testCategory.setColorCode("#123456");
 
         testCategoryDTO = new CategoryDTO();
-        testCategoryDTO.setUser(testUser);
-        testCategoryDTO.setHabits(habits);
+        testCategoryDTO.setUserId(testUser.getId());
         testCategoryDTO.setName("test category");
         testCategoryDTO.setColorCode("#123456");
 
         testCategoryDTOCreate = new CategoryDTOCreate();
-        testCategoryDTOCreate.setUser(testUser);
-        testCategoryDTOCreate.setHabits(habits);
+        testCategoryDTOCreate.setUserId(testUser.getId());
         testCategoryDTOCreate.setName("test category");
         testCategoryDTOCreate.setColorCode("#123456");
     }
@@ -89,10 +87,9 @@ public class CategoryServiceTest {
         CategoryDTOCreate createdCategory = categoryServiceImp.createCategory(1, testCategoryDTOCreate);
 
         Assertions.assertNotNull(createdCategory);
-        Assertions.assertEquals(testCategoryDTOCreate.getUser(), createdCategory.getUser());
+        Assertions.assertEquals(testCategoryDTOCreate.getUserId(), createdCategory.getUserId());
         Assertions.assertEquals(testCategoryDTOCreate.getId(), createdCategory.getId());
         Assertions.assertEquals(testCategoryDTOCreate.getColorCode(), createdCategory.getColorCode());
-        Assertions.assertEquals(testCategoryDTOCreate.getHabits(), createdCategory.getHabits());
         Assertions.assertEquals(testCategoryDTOCreate.getName(), createdCategory.getName());
 
         verify(modelMapper, times(1)).toCategory(testCategoryDTOCreate);
@@ -116,8 +113,7 @@ public class CategoryServiceTest {
 
         Assertions.assertNotNull(result);
         Assertions.assertEquals(testCategoryDTO.getName(), result.getName());
-        Assertions.assertEquals(testCategoryDTO.getUser(), result.getUser());
-        Assertions.assertEquals(testCategoryDTO.getHabits(), result.getHabits());
+        Assertions.assertEquals(testCategoryDTO.getUserId(), result.getUserId());
         Assertions.assertEquals(testCategoryDTO.getColorCode(), result.getColorCode());
 
         verify( categoryRepository, times(1)).findById(1);
@@ -133,13 +129,21 @@ public class CategoryServiceTest {
         verify(categoryRepository, times(1)).findById(99);
     }
 
-    @Test
+@Test
     void updateCategory_WithValidCategory() {
+        User user = new User();
+        user.setId(1);
+        user.setFirstname("test");
+        user.setLastname("test");
+        user.setEmail("test@test.com");
+        user.setAge(99);
+        user.setRole(User.RoleEnum.USER);
+        user.setPassword("testPass");
+
         CategoryDTO categoryDTO = new CategoryDTO();
         categoryDTO.setName("new test category");
         categoryDTO.setColorCode("#654321");
-        categoryDTO.setHabits(Arrays.asList(new Habit(), new Habit(), new Habit()));
-        categoryDTO.setUser(new User());
+        categoryDTO.setUserId(user.getId());
 
         Category category = new Category();
         category.setId(1);
@@ -149,8 +153,7 @@ public class CategoryServiceTest {
         category.setColorCode("#123456");
 
         Category updatedCategory = new Category();
-        category.setUser(categoryDTO.getUser());
-        category.setHabits(categoryDTO.getHabits());
+        category.setUser(testUser);
         category.setName(categoryDTO.getName());
         category.setColorCode(categoryDTO.getColorCode());
 
@@ -163,13 +166,13 @@ public class CategoryServiceTest {
         Assertions.assertNotNull(result);
         Assertions.assertEquals(categoryDTO.getName(), result.getName());
         Assertions.assertEquals(categoryDTO.getColorCode(), result.getColorCode());
-        Assertions.assertEquals(categoryDTO.getHabits(), result.getHabits());
-        Assertions.assertEquals(categoryDTO.getUser(), result.getUser());
+        Assertions.assertEquals(categoryDTO.getUserId(), result.getUserId());
 
         verify( categoryRepository, times(1)).findById(1);
         verify( categoryRepository, times(1)).save(category);
         verify(modelMapper, times(1)).toCategoryDTO(updatedCategory);
     }
+
     @Test
     void updateCategory_WithInvalidId_shouldThrowException(){
         when(categoryRepository.findById(99)).thenThrow(new ResourceNotFoundException("Category with id 99 not found"));
@@ -200,7 +203,7 @@ public class CategoryServiceTest {
         CategoryDTO categoryDTO1 = new CategoryDTO();
         categoryDTO1.setName("category 1");
         categoryDTO1.setColorCode("#123456");
-        categoryDTO1.setUser(testUser);
+        categoryDTO1.setUserId(testUser.getId());
 
         CategoryDTO categoryDTO2 = new CategoryDTO();
         categoryDTO2.setName("category 2");
@@ -217,11 +220,11 @@ public class CategoryServiceTest {
         Assertions.assertEquals(categories.size(), result.size());
         Assertions.assertEquals(categoryDTO1.getName(), result.get(0).getName());
         Assertions.assertEquals(categoryDTO1.getColorCode(), result.get(0).getColorCode());
-        Assertions.assertEquals(categoryDTO1.getUser(), result.get(0).getUser());
+        Assertions.assertEquals(categoryDTO1.getUserId(), result.get(0).getUserId());
 
         Assertions.assertEquals(categoryDTO2.getName(), result.get(1).getName());
         Assertions.assertEquals(categoryDTO2.getColorCode(), result.get(1).getColorCode());
-        Assertions.assertEquals(categoryDTO2.getUser(), result.get(1).getUser());
+        Assertions.assertEquals(categoryDTO2.getUserId(), result.get(1).getUserId());
 
         verify( categoryRepository, times(1)).findByUser_id(user_id);
         verify(modelMapper, times(1)).toCategoryDTO(category1);

@@ -15,5 +15,5 @@ public class HabitCompletionDTO {
     @NotNull
     private HabitCompletion.State state;
     @NotNull
-    private Habit habit;
+    private int habitId;
 }
