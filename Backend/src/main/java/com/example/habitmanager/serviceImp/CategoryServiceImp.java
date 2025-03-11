@@ -12,7 +12,6 @@ import com.example.habitmanager.repositories.UserRepository;
 import com.example.habitmanager.services.CategoryService;
 import com.example.habitmanager.repositories.HabitRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -33,7 +32,7 @@ public class CategoryServiceImp implements CategoryService {
     }
 
     @Override
-    public CategoryDTOCreate createCategory(@PathVariable int user_id, CategoryDTOCreate categoryDTOCreate) {
+    public CategoryDTOCreate createCategory(int user_id, CategoryDTOCreate categoryDTOCreate) {
         User user = userRepository.findById(user_id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id " + user_id + ". For Category creation."));
         Category category = modelMapper.toCategory(categoryDTOCreate);
@@ -73,9 +72,6 @@ public class CategoryServiceImp implements CategoryService {
 
     @Override
     public void deleteCategory(int category_id, int user_id) {
-        Category category = categoryRepository.findById(category_id)
-                .orElseThrow(() -> new RuntimeException("Category not found with id: " + category_id));
-
         Optional<List<Habit>> optionalHabits = habitRepository.findByUser_idAndCategory_id(user_id, category_id);
         if(optionalHabits.isPresent()) {
             List<Habit> habits = optionalHabits.get();
