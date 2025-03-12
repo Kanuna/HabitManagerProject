@@ -5,11 +5,11 @@
 			 xmlns:bar="clr-namespace:HabitManager"
              mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="800"
              x:Class="HabitManager.LandingView"
-			 Background="Coral">
+			 Background="LightBlue">
 
 
 
-	<Grid ColumnDefinitions="*,2*,*" RowDefinitions="0.2*,*,*,AUTO">
+	<Grid ColumnDefinitions="*,2*,*" RowDefinitions="0.4*,*,*,AUTO">
 		<Border Grid.Row="0" Grid.Column="0" BorderBrush="Black" BorderThickness="1" Padding="5"/>
 		<Border Grid.Row="0" Grid.Column="1" BorderBrush="Black" BorderThickness="1" Padding="5"/>
 		<Border Grid.Row="0" Grid.Column="2" BorderBrush="Black" BorderThickness="1" Padding="5"/>
@@ -23,18 +23,9 @@
 		<Border Grid.Row="2" Grid.Column="1" BorderBrush="Black" BorderThickness="1" Padding="5"/>
 		<Border Grid.Row="2" Grid.Column="2" BorderBrush="Black" BorderThickness="1" Padding="5"/>
 
-
-		<Grid.RowDefinitions>
-			<RowDefinition Height="Auto"/>
-			<!-- Header for Days of the Week -->
-			<RowDefinition Height="*"/>
-			<!-- Dates -->
-		</Grid.RowDefinitions>
-
 		
-		
-		<!--<Calendar Grid.ColumnSpan="3" HorizontalAlignment="Stretch" Background="Black" Foreground="White" BorderThickness="0"/>-->
-		<!--<bar:MenuBar Grid.ColumnSpan="3" Grid.Row="2"/>-->
+		<bar:CustomCalendar Grid.ColumnSpan="3"/>
+		<bar:MenuBar Grid.ColumnSpan="3" Grid.Row="2"/>
 	</Grid>
 
 </UserControl>

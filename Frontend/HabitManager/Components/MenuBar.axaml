@@ -6,7 +6,7 @@
              x:Class="HabitManager.MenuBar">
 
 	<Border Height="60" HorizontalAlignment="Stretch" VerticalAlignment="Bottom"
-			BorderThickness="2" BorderBrush="Red" Background="Crimson">
+			BorderThickness="1" Background="LightGray" BorderBrush="Black">
 		<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="40">
 			<Image Source="/Assets/user.png" Width="42"/>
 			<Image Source="/Assets/today.png" Width="42"/>
