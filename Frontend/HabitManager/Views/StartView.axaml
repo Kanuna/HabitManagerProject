@@ -1,0 +1,22 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:vm="clr-namespace:HabitManager.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="800"
+             x:Class="HabitManager.StartView"
+			 x:DataType="vm:CreateUserViewModel"
+			 Background="DarkGray">
+
+
+	<Grid ColumnDefinitions="*, 2*, *" RowDefinitions="*,2*,*">
+
+		<StackPanel Grid.Column="1" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Spacing="60">
+			<Button Content="Create" CornerRadius="10" Padding="10" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+					FontSize="30" FontWeight="Bold" Background="CornflowerBlue" BorderBrush="Black" BorderThickness="2"  Click="CreateButton_Click"/>
+
+			<Button Content="Login" CornerRadius="10" Padding="10" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+					FontSize="30" FontWeight="Bold" Background="BlanchedAlmond" Foreground="Black" BorderBrush="Black" BorderThickness="2" Click="LoginButton_Click"/>
+		</StackPanel>
+	</Grid>
+</UserControl>

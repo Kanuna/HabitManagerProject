@@ -1,0 +1,19 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="800"
+             x:Class="HabitManager.MenuBar">
+
+	<Border Height="60" HorizontalAlignment="Stretch" VerticalAlignment="Bottom"
+			BorderThickness="2" BorderBrush="Red" Background="Crimson">
+		<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="40">
+			<Image Source="/Assets/user.png" Width="42"/>
+			<Image Source="/Assets/today.png" Width="42"/>
+			<Image Source="/Assets/home.png" Width="42"/>
+			<Image Source="/Assets/habit.png" Width="42"/>
+			<Image Source="/Assets/category.png" Width="42"/>
+		</StackPanel>
+	</Border>
+
+</UserControl>
