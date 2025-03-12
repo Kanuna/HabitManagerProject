@@ -2,8 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\Frontend",
-    "\\Frontend\\HabitManagerAvalonia"
+    "\\Frontend\\HabitManager",
+    "\\Frontend\\HabitManager\\Views"
   ],
-  "SelectedNode": "\\Frontend\\HabitManagerAvalonia\\HabitManagerAvalonia.sln",
+  "SelectedNode": "\\Frontend\\HabitManager\\HabitManager.sln",
   "PreviewInSolutionExplorer": false
 }

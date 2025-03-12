@@ -5,15 +5,27 @@
 			 xmlns:bar="clr-namespace:HabitManager"
              mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="800"
              x:Class="HabitManager.LandingView"
-			 Background="Coral">
+			 Background="LightBlue">
 
-	<DockPanel>
+
+
+	<Grid ColumnDefinitions="*,2*,*" RowDefinitions="0.4*,*,*,AUTO">
+		<Border Grid.Row="0" Grid.Column="0" BorderBrush="Black" BorderThickness="1" Padding="5"/>
+		<Border Grid.Row="0" Grid.Column="1" BorderBrush="Black" BorderThickness="1" Padding="5"/>
+		<Border Grid.Row="0" Grid.Column="2" BorderBrush="Black" BorderThickness="1" Padding="5"/>
+
+		<!-- Second row -->
+		<Border Grid.Row="1" Grid.Column="0" BorderBrush="Black" BorderThickness="1" Padding="5"/>
+		<Border Grid.Row="1" Grid.Column="1" BorderBrush="Black" BorderThickness="1" Padding="5"/>
+		<Border Grid.Row="1" Grid.Column="2" BorderBrush="Black" BorderThickness="1" Padding="5"/>
+
+		<Border Grid.Row="2" Grid.Column="0" BorderBrush="Black" BorderThickness="1" Padding="5"/>
+		<Border Grid.Row="2" Grid.Column="1" BorderBrush="Black" BorderThickness="1" Padding="5"/>
+		<Border Grid.Row="2" Grid.Column="2" BorderBrush="Black" BorderThickness="1" Padding="5"/>
+
 		
-		<ContentControl DockPanel.Dock="Top">
+		<bar:CustomCalendar Grid.ColumnSpan="3"/>
+		<bar:MenuBar Grid.ColumnSpan="3" Grid.Row="2"/>
+	</Grid>
 
-		</ContentControl>
-
-
-		<bar:MenuBar DockPanel.Dock="Bottom" />
-	</DockPanel>
 </UserControl>
