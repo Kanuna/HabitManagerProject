@@ -1,0 +1,43 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:vm="clr-namespace:HabitManager.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="800"
+             x:Class="HabitManager.CreateUserView"
+			 x:DataType="vm:CreateUserViewModel"
+			 Background="DarkGray">
+
+	<Grid ColumnDefinitions="*, 2*, *" RowDefinitions="*,2*,*">
+
+		<TextBlock Grid.Column="1" Text="{Binding ErrorMessage, Mode=TwoWay}" FontSize="18" FontWeight="Bold"
+				   TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+		
+		<StackPanel Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Spacing="3">
+			<TextBlock Text="Firstname:"  FontWeight="Bold" FontSize="14"/>
+			<TextBox Watermark="Enter Firstname" Text="{Binding FirstName, Mode=TwoWay}"/>
+			
+			<TextBlock Text="Lastname:" FontWeight="Bold" FontSize="14"/>
+			<TextBox Watermark="Enter Lastname" Text="{Binding LastName, Mode=TwoWay}"/>
+			
+			<TextBlock Text="Age:" FontWeight="Bold" FontSize="14"/>
+			<TextBox Width="40" HorizontalAlignment="Left" Watermark="Age" Text="{Binding Age, Mode=TwoWay}"/>
+			
+			<TextBlock Text="Email:" FontWeight="Bold" FontSize="14"/>
+			<TextBox Watermark="Enter email" Text="{Binding Email, Mode=TwoWay}"/>
+			
+			<TextBlock Text="Password:" FontWeight="Bold" FontSize="14"/>
+			<TextBox PasswordChar="*" Watermark="Enter password" Text="{Binding Password, Mode=TwoWay}"/>
+		</StackPanel>
+		
+		<Panel Grid.Column="1" Grid.Row="1" VerticalAlignment="Bottom">
+			<Button Content="Create" FontSize="20" Background="Green" Foreground="White"
+					HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="CreateButton_Click"
+				IsEnabled="{Binding CanCreate}"/>
+			
+			<Button Content="Back" FontSize="20" Background="Black" Foreground="White"
+					HorizontalAlignment="Left" VerticalAlignment="Bottom" Click="BackButton_Click"/>
+		</Panel>
+		
+	</Grid>
+</UserControl>
