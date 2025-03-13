@@ -16,7 +16,7 @@ public partial class CreateUserView : UserControl
 
     public void CreateButton_Click(object sender, RoutedEventArgs args)
     {
-        
+
     }
 
     public void BackButton_Click(object sender, RoutedEventArgs args)

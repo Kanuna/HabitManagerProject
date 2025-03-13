@@ -10,23 +10,23 @@
 
 	<Grid ColumnDefinitions="*, 2*, *" RowDefinitions="*,2*,*">
 
-		<TextBlock Grid.Column="1" Text="{Binding ErrorMessage, Mode=TwoWay}" FontSize="18" FontWeight="Bold"
+		<TextBlock Name="ErrorMessage" Grid.Column="1" Text="{Binding ErrorMessage, Mode=TwoWay}" Foreground="Black" FontSize="18" FontWeight="Bold"
 				   TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
 		
 		<StackPanel Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Spacing="3">
-			<TextBlock Text="Firstname:"  FontWeight="Bold" FontSize="14"/>
+			<TextBlock Name="FirstName" Text="Firstname:" FontWeight="Bold" FontSize="14"/>
 			<TextBox Watermark="Enter Firstname" Text="{Binding FirstName, Mode=TwoWay}"/>
 			
-			<TextBlock Text="Lastname:" FontWeight="Bold" FontSize="14"/>
+			<TextBlock Name="Lastname" Text="Lastname:" FontWeight="Bold" FontSize="14"/>
 			<TextBox Watermark="Enter Lastname" Text="{Binding LastName, Mode=TwoWay}"/>
 			
-			<TextBlock Text="Age:" FontWeight="Bold" FontSize="14"/>
+			<TextBlock Name="Age" Text="Age:" FontWeight="Bold" FontSize="14"/>
 			<TextBox Width="40" HorizontalAlignment="Left" Watermark="Age" Text="{Binding Age, Mode=TwoWay}"/>
 			
-			<TextBlock Text="Email:" FontWeight="Bold" FontSize="14"/>
+			<TextBlock Name="Email" Text="Email:" FontWeight="Bold" FontSize="14"/>
 			<TextBox Watermark="Enter email" Text="{Binding Email, Mode=TwoWay}"/>
 			
-			<TextBlock Text="Password:" FontWeight="Bold" FontSize="14"/>
+			<TextBlock Name="Password" Text="Password:" FontWeight="Bold" FontSize="14"/>
 			<TextBox PasswordChar="*" Watermark="Enter password" Text="{Binding Password, Mode=TwoWay}"/>
 		</StackPanel>
 		

@@ -9,7 +9,6 @@
 			BorderThickness="1" Background="LightGray" BorderBrush="Black">
 		<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="40">
 			<Image Source="/Assets/user.png" Width="42"/>
-			<Image Source="/Assets/today.png" Width="42"/>
 			<Image Source="/Assets/home.png" Width="42"/>
 			<Image Source="/Assets/habit.png" Width="42"/>
 			<Image Source="/Assets/category.png" Width="42"/>

@@ -1,3 +1,4 @@
+
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -9,12 +10,11 @@
 
 
 
-	<Grid ColumnDefinitions="*,2*,*" RowDefinitions="0.4*,*,*,AUTO">
+	<Grid ColumnDefinitions="*,2*,*" RowDefinitions="0.4*,*,0.3*,AUTO">
 		<Border Grid.Row="0" Grid.Column="0" BorderBrush="Black" BorderThickness="1" Padding="5"/>
 		<Border Grid.Row="0" Grid.Column="1" BorderBrush="Black" BorderThickness="1" Padding="5"/>
 		<Border Grid.Row="0" Grid.Column="2" BorderBrush="Black" BorderThickness="1" Padding="5"/>
 
-		<!-- Second row -->
 		<Border Grid.Row="1" Grid.Column="0" BorderBrush="Black" BorderThickness="1" Padding="5"/>
 		<Border Grid.Row="1" Grid.Column="1" BorderBrush="Black" BorderThickness="1" Padding="5"/>
 		<Border Grid.Row="1" Grid.Column="2" BorderBrush="Black" BorderThickness="1" Padding="5"/>
@@ -22,10 +22,14 @@
 		<Border Grid.Row="2" Grid.Column="0" BorderBrush="Black" BorderThickness="1" Padding="5"/>
 		<Border Grid.Row="2" Grid.Column="1" BorderBrush="Black" BorderThickness="1" Padding="5"/>
 		<Border Grid.Row="2" Grid.Column="2" BorderBrush="Black" BorderThickness="1" Padding="5"/>
-
 		
 		<bar:CustomCalendar Grid.ColumnSpan="3"/>
 		<bar:MenuBar Grid.ColumnSpan="3" Grid.Row="2"/>
+		
+		<Button Content="+" FontSize="30" FontWeight="Bold" Width="46" Height="46" Background="Black" Foreground="White"
+				HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="2" Grid.Row="2">
+			<TextBlock Text="+" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+		</Button>
 	</Grid>
 
 </UserControl>
