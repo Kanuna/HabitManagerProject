@@ -15,7 +15,7 @@ public interface ModelMapper {
         userDTO.setEmail(user.getEmail());
         userDTO.setAge(user.getAge());
         userDTO.setPassword(user.getPassword());
-        userDTO.setRole(user.getRole());
+        //userDTO.setRole(user.getRole());
         return userDTO;
     }
     default User toUser(UserDTOCreate userDTOCreate){
@@ -25,7 +25,7 @@ public interface ModelMapper {
         user.setAge(userDTOCreate.getAge());
         user.setEmail(userDTOCreate.getEmail());
         user.setPassword(userDTOCreate.getPassword());
-        user.setRole(userDTOCreate.getRole());
+        //user.setRole(userDTOCreate.getRole());
         return user;
     }
     default UserDTOCreate toUserDTOCreate(User user){
@@ -36,7 +36,7 @@ public interface ModelMapper {
         userDTOCreate.setAge(user.getAge());
         userDTOCreate.setEmail(user.getEmail());
         userDTOCreate.setPassword(user.getPassword());
-        userDTOCreate.setRole(user.getRole());
+        //userDTOCreate.setRole(user.getRole());
         return userDTOCreate;
     }
 

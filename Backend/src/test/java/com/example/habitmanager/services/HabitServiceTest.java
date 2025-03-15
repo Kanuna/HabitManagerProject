@@ -65,7 +65,7 @@ public class HabitServiceTest {
         testUser.setAge(1);
         testUser.setEmail("test@test.com");
         testUser.setPassword("password");
-        testUser.setRole(User.RoleEnum.USER);
+        //testUser.setRole(User.RoleEnum.USER);
         testUser.setCategories(Collections.singletonList(testCategory));
 
         testCategory = new Category();
@@ -190,7 +190,7 @@ public class HabitServiceTest {
         expectedUser.setAge(1);
         expectedUser.setEmail("test@test.com");
         expectedUser.setPassword("password");
-        expectedUser.setRole(User.RoleEnum.USER);
+       //expectedUser.setRole(User.RoleEnum.USER);
         expectedUser.setCategories(Collections.singletonList(expectedCategory));
 
         HabitDTO expectedDTO = new HabitDTO();
@@ -256,7 +256,7 @@ public class HabitServiceTest {
         newUser.setAge(1);
         newUser.setEmail("test@test.com");
         newUser.setPassword("password");
-        newUser.setRole(User.RoleEnum.USER);
+        //newUser.setRole(User.RoleEnum.USER);
         newUser.setCategories(Collections.singletonList(newCategory));
 
         HabitDTOCreate habitDTOCreate = new HabitDTOCreate();

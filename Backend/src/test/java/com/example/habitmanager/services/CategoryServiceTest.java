@@ -55,7 +55,7 @@ public class CategoryServiceTest {
         testUser.setLastname("test");
         testUser.setEmail("test@test.com");
         testUser.setAge(99);
-        testUser.setRole(User.RoleEnum.USER);
+        //testUser.setRole(User.RoleEnum.USER);
         testUser.setPassword("testPass");
         testUser.setCategories(Collections.singletonList(testCategory));
         testUser.setHabits(habits);
@@ -137,7 +137,7 @@ public class CategoryServiceTest {
         user.setLastname("test");
         user.setEmail("test@test.com");
         user.setAge(99);
-        user.setRole(User.RoleEnum.USER);
+        //user.setRole(User.RoleEnum.USER);
         user.setPassword("testPass");
 
         CategoryDTO categoryDTO = new CategoryDTO();

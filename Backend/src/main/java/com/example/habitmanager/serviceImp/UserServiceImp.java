@@ -49,6 +49,7 @@ public class UserServiceImp implements UserService {
 
         user.setFirstname(userDTO.getFirstname());
         user.setLastname(userDTO.getLastname());
+        user.setAge(userDTO.getAge());
         user.setEmail(userDTO.getEmail());
         user.setPassword(userDTO.getPassword());
 

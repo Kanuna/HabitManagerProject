@@ -55,7 +55,7 @@ public class UserServiceTest {
         testUser.setAge(1);
         testUser.setEmail("test@test.com");
         testUser.setPassword("test1234");
-        testUser.setRole(User.RoleEnum.USER);
+        //testUser.setRole(User.RoleEnum.USER);
 
         testUserDTO = new UserDTO();
         testUserDTO.setFirstname("test");
@@ -63,7 +63,7 @@ public class UserServiceTest {
         testUserDTO.setAge(1);
         testUserDTO.setEmail("test@test.com");
         testUserDTO.setPassword("test1234");
-        testUserDTO.setRole(User.RoleEnum.USER);
+        //testUserDTO.setRole(User.RoleEnum.USER);
 
         testUserDTOCreate = new UserDTOCreate();
         testUserDTOCreate.setFirstname("test");
@@ -71,7 +71,7 @@ public class UserServiceTest {
         testUserDTOCreate.setAge(1);
         testUserDTOCreate.setEmail("test@test.com");
         testUserDTOCreate.setPassword("test1234");
-        testUserDTOCreate.setRole(User.RoleEnum.USER);
+        //testUserDTOCreate.setRole(User.RoleEnum.USER);
     }
 
 
@@ -89,7 +89,7 @@ public class UserServiceTest {
         Assertions.assertEquals(testUserDTOCreate.getLastname(), createdUser.getLastname());
         Assertions.assertEquals(testUserDTOCreate.getEmail(), createdUser.getEmail());
         Assertions.assertEquals(testUserDTOCreate.getPassword(), createdUser.getPassword());
-        Assertions.assertEquals(testUserDTOCreate.getRole(), createdUser.getRole());
+        //Assertions.assertEquals(testUserDTOCreate.getRole(), createdUser.getRole());
 
         verify(modelMapper, times(1)).toUser(testUserDTOCreate);
         verify(userRepository, times(1)).save(testUser);
@@ -104,7 +104,7 @@ public class UserServiceTest {
         expectedDTO.setAge(1);
         expectedDTO.setEmail("test@test.com");
         expectedDTO.setPassword("test123");
-        expectedDTO.setRole(User.RoleEnum.USER);
+        //expectedDTO.setRole(User.RoleEnum.USER);
 
         when(userRepository.findById(1)).thenReturn(Optional.of(testUser));
         when(modelMapper.toUserDTO(testUser)).thenReturn(expectedDTO);
@@ -117,7 +117,7 @@ public class UserServiceTest {
         Assertions.assertEquals(expectedDTO.getAge(), result.getAge());
         Assertions.assertEquals(expectedDTO.getEmail(), result.getEmail());
         Assertions.assertEquals(expectedDTO.getPassword(), result.getPassword());
-        Assertions.assertEquals(expectedDTO.getRole(), result.getRole());
+        //Assertions.assertEquals(expectedDTO.getRole(), result.getRole());
 
         verify(userRepository, times(1)).findById(1);
         verify(modelMapper, times(1)).toUserDTO(testUser);
@@ -140,7 +140,7 @@ public class UserServiceTest {
         userDTO.setAge(1);
         userDTO.setEmail("newtest@test.com");
         userDTO.setPassword("newtest1234");
-        userDTO.setRole(User.RoleEnum.USER);
+        //userDTO.setRole(User.RoleEnum.USER);
 
         User user = new User();
         user.setFirstname("test");
@@ -148,7 +148,7 @@ public class UserServiceTest {
         user.setAge(1);
         user.setEmail("test@test.com");
         user.setPassword("test1234");
-        user.setRole(User.RoleEnum.USER);
+        //user.setRole(User.RoleEnum.USER);
 
         User updatedUser = new User();
         updatedUser.setFirstname(userDTO.getFirstname());
@@ -156,7 +156,7 @@ public class UserServiceTest {
         updatedUser.setAge(userDTO.getAge());
         updatedUser.setEmail(userDTO.getEmail());
         updatedUser.setPassword(userDTO.getPassword());
-        updatedUser.setRole(userDTO.getRole());
+        //updatedUser.setRole(userDTO.getRole());
 
         when(userRepository.findById(1)).thenReturn(Optional.of(user));
         when(userRepository.save(user)).thenReturn(updatedUser);
@@ -170,7 +170,7 @@ public class UserServiceTest {
         Assertions.assertEquals(userDTO.getAge(), result.getAge());
         Assertions.assertEquals(userDTO.getEmail(), result.getEmail());
         Assertions.assertEquals(userDTO.getPassword(), result.getPassword());
-        Assertions.assertEquals(userDTO.getRole(), result.getRole());
+        //Assertions.assertEquals(userDTO.getRole(), result.getRole());
 
         verify(userRepository, times(1)).findById(1);
         verify(userRepository, times(1)).save(user);
@@ -196,7 +196,7 @@ public class UserServiceTest {
         user.setAge(1);
         user.setEmail("test@test.com");
         user.setPassword("test1234");
-        user.setRole(User.RoleEnum.USER);
+        //user.setRole(User.RoleEnum.USER);
 
         Stats stats = new Stats();
 

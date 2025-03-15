@@ -21,8 +21,8 @@ public class UserDTO {
     private String email;
     @Size(min = 8, message = "Password must be at least 8 characters")
     private String password;
-    @NotNull(message = "Role is required")
-    private User.RoleEnum role;
+    //@NotNull(message = "Role is required")
+    //private User.RoleEnum role;
   /*  @Nullable
     private List<HabitDTO> habits;
     @Nullable
