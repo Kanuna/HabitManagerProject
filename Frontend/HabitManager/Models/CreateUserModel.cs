@@ -11,16 +11,16 @@ namespace HabitManager.Models
     class CreateUserModel
     {
         [JsonPropertyName("id")]
-        public int id;
+        public int id { get; set; }
         [JsonPropertyName("firstname")]
-        public string FirstName;
+        public string FirstName { get; set; }
         [JsonPropertyName("lastname")]
-        public string LastName;
+        public string LastName {  get; set; }
         [JsonPropertyName("age")]
         public int Age;
         [JsonPropertyName("email")]
-        public string Email;
+        public string Email {  get; set; }
         [JsonPropertyName("password")]
-        public string Password;
+        public string Password { get; set; }
     }
 }

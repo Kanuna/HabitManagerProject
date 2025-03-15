@@ -10,8 +10,13 @@
 
 	<Grid ColumnDefinitions="*, 2*, *" RowDefinitions="*,2*,*">
 
-		<TextBlock Name="ErrorMessage" Grid.Column="1" Text="{Binding ErrorMessage, Mode=TwoWay}" Foreground="Black" FontSize="18" FontWeight="Bold"
-				   TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+		<Border IsVisible="{Binding ShowError}}" BorderBrush="Black" BorderThickness="2" Padding="5" Grid.Column="1"
+				HorizontalAlignment="Center" VerticalAlignment="Bottom">
+			
+			<TextBlock Name="ErrorMessage" Text="{Binding ErrorMessage, Mode=TwoWay}"
+					   Foreground="Black" FontSize="18" FontWeight="Bold"
+					   TextWrapping="Wrap" TextAlignment="Center"/>
+		</Border>
 		
 		<StackPanel Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Spacing="3">
 			<TextBlock Name="FirstName" Text="Firstname:" FontWeight="Bold" FontSize="14"/>
