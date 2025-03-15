@@ -18,6 +18,8 @@ namespace HabitManager.ApiService
         {
             _httpClient.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
         }
+
+        public static HttpClient Instance => _httpClient;
     }
 }
     

@@ -8,15 +8,17 @@ namespace HabitManager;
 
 public partial class CreateUserView : UserControl
 {
+    private readonly CreateUserViewModel createUserViewModel = new CreateUserViewModel(new ApiService.UserEndpoint());
+
     public CreateUserView()
     {
         InitializeComponent();
-        this.DataContext = new CreateUserViewModel();
+        DataContext = createUserViewModel;
     }
 
     public void CreateButton_Click(object sender, RoutedEventArgs args)
     {
-
+        createUserViewModel.ErrorMessage = "Hehe";
     }
 
     public void BackButton_Click(object sender, RoutedEventArgs args)

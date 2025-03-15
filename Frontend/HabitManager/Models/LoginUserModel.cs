@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HabitManager.Models
 {
-    class LoginUser
+    class LoginUserModel
     {
     }
 }

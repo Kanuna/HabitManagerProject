@@ -1,4 +1,5 @@
 ﻿using Avalonia.Controls.Primitives;
+using HabitManager.ApiService;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,6 +12,7 @@ namespace HabitManager.ViewModels
 {
     class CreateUserViewModel : INotifyPropertyChanged
     {
+        private readonly UserEndpoint _userEndpoint;
         private string _firstname;
         private string _lastname;
         private int _age;
@@ -18,6 +20,12 @@ namespace HabitManager.ViewModels
         private string _password;
 
         private string _errorMessage;
+
+
+        public CreateUserViewModel(UserEndpoint userEndpoint)
+        {
+            _userEndpoint = userEndpoint;
+        }
 
 
         public string ErrorMessage
@@ -95,28 +103,37 @@ namespace HabitManager.ViewModels
                 {
                     _password = value;
                     OnPropertyChanged(nameof(Password));
-                    OnPropertyChanged(nameof(CanCreate));
+                    OnPropertyChanged(nameof(IsPasswordValid));
+                    ValidatePassword();
                 }
             }
         }
 
-        public bool IsPasswordValid => !string.IsNullOrEmpty(Password) && Password.Length > 8;
+        public bool IsPasswordValid => !string.IsNullOrWhiteSpace(Password) && Password.Length > 8 && Regex.IsMatch(Password, @"\d");
 
-        public bool IsEmailValid => !string.IsNullOrEmpty(Email) && Regex.IsMatch(Email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$");
+        public bool CanCreate =>
+            !string.IsNullOrWhiteSpace(FirstName)
+            && !string.IsNullOrWhiteSpace(LastName)
+            && Age > 0
+            && !string.IsNullOrWhiteSpace(Email) && Regex.IsMatch(Email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$")
+            && IsPasswordValid;
 
-        public bool CanCreate => IsPasswordValid && IsEmailValid;
 
+        public void ValidatePassword()
+        {
+            if (!IsPasswordValid && Password.Length < 8)
+            {
+                ErrorMessage = "Password must be minum 8 characters"; //and contain at least one digit
+            }
+            else
+            {
+                ErrorMessage = string.Empty;
+            }
+        }
 
 
         public event PropertyChangedEventHandler? PropertyChanged;
         private void OnPropertyChanged(string propertyName) =>
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-
-        
-        public CreateUserViewModel()
-        {
-            ErrorMessage = "hello";
-        }
-
     }
 }

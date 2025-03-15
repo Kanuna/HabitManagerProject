@@ -32,8 +32,9 @@
 		
 		<Panel Grid.Column="1" Grid.Row="1" VerticalAlignment="Bottom">
 			<Button Content="Create" FontSize="20" Background="Green" Foreground="White"
-					HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="CreateButton_Click"
-				IsEnabled="{Binding CanCreate}"/>
+					HorizontalAlignment="Right" VerticalAlignment="Bottom"
+					Click="CreateButton_Click"
+					IsEnabled="{Binding CanCreate}"/>
 			
 			<Button Content="Back" FontSize="20" Background="Black" Foreground="White"
 					HorizontalAlignment="Left" VerticalAlignment="Bottom" Click="BackButton_Click"/>
