@@ -16,19 +16,13 @@ public class User {
     private String firstname;
     @Column(nullable = false)
     private String lastname;
+
     @Column(nullable = false)
     private int age;
     @Column(nullable = false)
     private String email;
     @Column(nullable = false)
     private String password;
-/*    @Column(nullable = false)
-    private RoleEnum role;
-
-
-    public enum RoleEnum {
-        ADMIN, USER
-    }*/
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Habit> habits;
