@@ -3,14 +3,17 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-			 xmlns:bar="clr-namespace:HabitManager"
+			 xmlns:local="clr-namespace:HabitManager"
+			 xmlns:vm="clr-namespace:HabitManager.ViewModels"
              mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="800"
              x:Class="HabitManager.LandingView"
-			 Background="LightBlue">
+			 x:DataType="vm:LandingViewModel"
+			 Background="LightBlue"
+			 Width="400" Height="800">
 
 
 
-	<Grid ColumnDefinitions="*,2*,*" RowDefinitions="0.4*,*,0.3*,AUTO">
+	<Grid ColumnDefinitions="*,4*,*" RowDefinitions="0.2,0.4*,*,0.3*,AUTO">
 		<Border Grid.Row="0" Grid.Column="0" BorderBrush="Black" BorderThickness="1" Padding="5"/>
 		<Border Grid.Row="0" Grid.Column="1" BorderBrush="Black" BorderThickness="1" Padding="5"/>
 		<Border Grid.Row="0" Grid.Column="2" BorderBrush="Black" BorderThickness="1" Padding="5"/>
@@ -22,14 +25,29 @@
 		<Border Grid.Row="2" Grid.Column="0" BorderBrush="Black" BorderThickness="1" Padding="5"/>
 		<Border Grid.Row="2" Grid.Column="1" BorderBrush="Black" BorderThickness="1" Padding="5"/>
 		<Border Grid.Row="2" Grid.Column="2" BorderBrush="Black" BorderThickness="1" Padding="5"/>
+
+		<Border Grid.Row="3" Grid.Column="0" BorderBrush="Black" BorderThickness="1" Padding="5"/>
+		<Border Grid.Row="3" Grid.Column="1" BorderBrush="Black" BorderThickness="1" Padding="5"/>
+		<Border Grid.Row="3" Grid.Column="2" BorderBrush="Black" BorderThickness="1" Padding="5"/>
+
 		
-		<bar:CustomCalendar Grid.ColumnSpan="3"/>
-		<bar:MenuBar Grid.ColumnSpan="3" Grid.Row="2"/>
+		<local:CustomCalendar Grid.ColumnSpan="3"/>
+		<local:MenuBar Grid.ColumnSpan="3" Grid.Row="3"/>
+
+		<ListBox Name="HabitList" Grid.Column="1" Grid.Row="2" Background="LightCyan">
+			
+		</ListBox>
 		
 		<Button Content="+" FontSize="30" FontWeight="Bold" Width="46" Height="46" Background="Black" Foreground="White"
-				HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="2" Grid.Row="2">
+				HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="2" Grid.Row="3"
+				Command="{Binding ShowPopupCommand}">
 			<TextBlock Text="+" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 		</Button>
+
+
+		<Popup IsOpen="{Binding IsPopupVisible}" Placement="Center">
+			<local:CreateHabitPopup />
+		</Popup>
 	</Grid>
 
 </UserControl>

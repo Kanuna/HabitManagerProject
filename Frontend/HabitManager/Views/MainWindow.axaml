@@ -7,5 +7,6 @@
         mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="800"
         x:Class="HabitManager.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
-        Title="HabitManager">
+        Title="HabitManager"
+		Width="400" Height="800">
 </Window>

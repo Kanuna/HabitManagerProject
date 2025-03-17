@@ -9,7 +9,7 @@ namespace HabitManager;
 
 public partial class CreateUserView : UserControl
 {
-    private readonly CreateUserViewModel createUserViewModel = new CreateUserViewModel(new ApiService.UserEndpoint());
+    private readonly CreateUserViewModel createUserViewModel = new(new ApiService.UserEndpoint());
 
     public CreateUserView()
     {
@@ -19,14 +19,15 @@ public partial class CreateUserView : UserControl
 
     public async void CreateButton_Click(object sender, RoutedEventArgs args)
     {
-        CreateUserModel user = await createUserViewModel.CreateUser();
-        if (user != null) {
-            this.Content = new LandingView();
+        UserModel user = await createUserViewModel.CreateUser();
+        if (user != null)
+        {
+            this.Content = new LoginUserView();
         }
     }
 
-    public void BackButton_Click(object sender, RoutedEventArgs args)
+    public void LoginButton_Click(object sender, RoutedEventArgs args)
     {
-
+        this.Content = new LoginUserView();
     }
 }

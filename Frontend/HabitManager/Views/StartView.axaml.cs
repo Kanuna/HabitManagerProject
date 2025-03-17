@@ -16,12 +16,10 @@ public partial class StartView : UserControl
     public void CreateButton_Click(object sender, RoutedEventArgs args)
     {
         this.Content = new CreateUserView();
-        this.DataContext = new CreateUserViewModel(new ApiService.UserEndpoint());
     }    
     
     public void LoginButton_Click(object sender, RoutedEventArgs args)
     {
         this.Content = new LoginUserView();
-        this.DataContext = new LoginUserViewModel();
     }
 }

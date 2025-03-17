@@ -1,11 +1,7 @@
-﻿using Avalonia.Controls.Primitives;
-using HabitManager.ApiService;
+﻿using HabitManager.ApiService;
 using HabitManager.Models;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -167,11 +163,11 @@ namespace HabitManager.ViewModels
         private void OnPropertyChanged(string propertyName) =>
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
-        public async Task<CreateUserModel> CreateUser()
+        public async Task<UserModel> CreateUser()
         {
             try
             {
-                CreateUserModel user = await _userEndpoint.CreateUserAsync(FirstName, LastName, Age, Email, Password);
+                UserModel user = await _userEndpoint.CreateUser(FirstName, LastName, Age, Email, Password);
                 return user;
             }
             catch (Exception ex)

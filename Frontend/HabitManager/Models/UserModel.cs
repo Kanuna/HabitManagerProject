@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace HabitManager.Models
 {
-    class CreateUserModel
+    class UserModel
     {
         [JsonPropertyName("id")]
         public int id { get; set; }

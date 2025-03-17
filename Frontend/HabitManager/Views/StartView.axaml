@@ -6,7 +6,8 @@
              mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="800"
              x:Class="HabitManager.StartView"
 			 x:DataType="vm:CreateUserViewModel"
-			 Background="DarkGray">
+			 Background="DarkGray"
+			 Width="400" Height="800">
 
 
 	<Grid ColumnDefinitions="*, 2*, *" RowDefinitions="*,2*,*">
