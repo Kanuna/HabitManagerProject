@@ -1,6 +1,7 @@
 package com.example.habitmanager.controllers;
 
 import com.example.habitmanager.dto.UserDTO;
+import com.example.habitmanager.dto.UserLoginRequestDTO;
 import com.example.habitmanager.dtoCreate.UserDTOCreate;
 import com.example.habitmanager.serviceImp.UserServiceImp;
 import org.springframework.http.HttpStatus;
@@ -43,9 +44,9 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("/login/{email}/{password}")
-    public ResponseEntity<UserDTOCreate> userLogin(@RequestParam String email, @RequestParam String password){
-        UserDTOCreate userDTOCreate = userServiceImp.userLogin(email, password);
+    @PostMapping("/login")
+    public ResponseEntity<UserDTOCreate> userLogin(@RequestBody UserLoginRequestDTO loginRequestDTO){
+        UserDTOCreate userDTOCreate = userServiceImp.userLogin(loginRequestDTO.getEmail(), loginRequestDTO.getPassword());
 
         if(userDTOCreate != null) {
             return ResponseEntity.ok(userDTOCreate);
