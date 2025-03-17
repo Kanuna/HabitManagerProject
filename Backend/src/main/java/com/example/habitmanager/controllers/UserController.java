@@ -43,15 +43,15 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<String> userLogin(@RequestParam String email, @RequestParam String password){
-        boolean isAuthorized = userServiceImp.userLogin(email, password);
+    @PostMapping("/login/{email}/{password}")
+    public ResponseEntity<UserDTOCreate> userLogin(@RequestParam String email, @RequestParam String password){
+        UserDTOCreate userDTOCreate = userServiceImp.userLogin(email, password);
 
-        if(isAuthorized){
-            return ResponseEntity.ok("User logged in");
+        if(userDTOCreate != null) {
+            return ResponseEntity.ok(userDTOCreate);
         }
         else{
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid email or password");
+            return ResponseEntity.badRequest().build();
         }
     }
 }

@@ -8,5 +8,5 @@ public interface UserService {
     UserDTO getUserById(int user_id);
     UserDTO updateUser(int user_id, UserDTO userDTO);
     void deleteUser(int user_id);
-    boolean userLogin(String email, String password);
+    UserDTOCreate userLogin(String email, String password);
 }

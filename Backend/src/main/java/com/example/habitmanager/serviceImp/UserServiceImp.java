@@ -65,13 +65,20 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public boolean userLogin(String email, String password) {
+    public UserDTOCreate userLogin(String email, String password) {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with email: " + email));
 
         Argon2 argon2 = Argon2Factory.create();
         String userHashedPassword = user.getPassword();
 
-        return argon2.verify(userHashedPassword, password.toCharArray());
+        boolean isMatch = argon2.verify(userHashedPassword, password.toCharArray());
+
+        if(isMatch) {
+            return modelMapper.toUserDTOCreate(user);
+        }
+        else {
+            throw new ResourceNotFoundException("User not found with email: " + email);
+        }
     }
 }
